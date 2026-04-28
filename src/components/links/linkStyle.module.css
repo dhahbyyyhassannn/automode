@@ -1,0 +1,22 @@
+.linkStyle {
+    color: var(--thirdColor);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.5s ease-in-out;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.link {
+    font-size: 24px;
+    color: var(--thirdColor);
+    font-family: var(--linkFont);
+    transition: color 0.5s ease-in-out;
+}
+.linkStyle:hover {
+    background-color: var(--thirdColor);
+}
+.linkStyle:hover .link {
+    color: var(--secondryColor);
+}

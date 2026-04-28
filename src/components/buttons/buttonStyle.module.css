@@ -1,0 +1,39 @@
+.signInButton {
+    background-color: var(--thirdColor);
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 15px;
+    width: 70px;
+}
+.signInLink {
+    text-decoration: none;
+    color: var(--secondryColor);
+    font-family: var(--buttonFont);
+}
+.signUpButton {
+    background-color: var(--secondryColor);
+    border: 1px solid var(--thirdColor);
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 15px;
+    width: 70px;
+    transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out;
+}
+.signUpLink {
+    text-decoration: none;
+    color: var(--thirdColor);
+    font-family: var(--buttonFont);
+    transition: color 0.5s ease-in-out
+}
+
+.signUpButton:hover {
+    background-color: var(--thirdColor);
+    border: 1px solid var(--secondryColor);
+}
+.signUpButton:hover .signUpLink {
+    color: var(--secondryColor);
+}
