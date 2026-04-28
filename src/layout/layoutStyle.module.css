@@ -38,3 +38,8 @@
     font-size: 24px;
     margin: 0;
 }
+.form-title {
+    color: var(--thirdColor);
+    font-family: var(--titleFont);
+    font-size: 60px;
+}
