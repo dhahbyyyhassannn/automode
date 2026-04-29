@@ -1,5 +1,5 @@
 .header {
-    background-color: var(--secondryColor);
+    background-color: var(--secondlyColor);
     color: #F3F4F4;
     margin: 5px;
     border-radius: 7px;
@@ -42,4 +42,87 @@
     color: var(--thirdColor);
     font-family: var(--titleFont);
     font-size: 60px;
+}
+/* boxsignin  */
+.signInContainer {
+    background: transparent;
+    backdrop-filter: none;
+    padding: 3rem 2.5rem;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    width: 100%;
+    max-width: 540px;
+}
+
+.formTitle {
+    font-family: var(--titleFont);
+    color: var(--thirdColor);
+    font-size: 2.25rem;
+    margin-bottom: 2.25rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.Label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: var(--linkFont);
+    color: var(--thirdColor);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #d8dde3;
+    border-radius: 14px;
+    font-family: var(--linkFont);
+    font-size: 1rem;
+    color: var(--thirdColor);
+    background: linear-gradient(180deg, #fcfdff 0%, #f7f9fc 100%);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--thirdColor);
+    background-color: #fff;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #0b2a41 0%, #071d30 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    font-family: var(--buttonFont);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 16px 30px rgba(7, 29, 48, 0.18);
+}
+
+.btn:hover {
+    color: var(--thirdColor);
+}
+@media (max-width: 768px) {
+    .signInContainer {
+        padding: 2rem 1.4rem;
+        border-radius: 20px;
+    }
+   .formTitle {
+        font-size: 1.9rem;
+        margin-bottom: 1.8rem;
+    }
 }

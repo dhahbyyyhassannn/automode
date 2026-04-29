@@ -22,8 +22,8 @@ export default function HeaderMenu() {
                 </li>
                 <li className={layoutStyles.buttons}>
 
-                    <AuthButton link="/SignIn" text="Sign In" style={styles.signInButton} linkStyle={ styles.signInLink }/>
-                    <AuthButton link="/SignUp" text="Sign Up" style={styles.signUpButton} linkStyle={ styles.signUpLink } />
+                    <AuthButton link="/signin" text="Sign In" style={styles.signInButton} linkStyle={ styles.signInLink }/>
+                    <AuthButton link="/signup" text="Sign Up" style={styles.signUpButton} linkStyle={ styles.signUpLink } />
                 </li>
             </ul>
         </nav>

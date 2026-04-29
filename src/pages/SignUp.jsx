@@ -1,18 +1,19 @@
-import BoxSignIn from "../layout/BoxSignIn";
 import HeaderMenu from "../layout/HeaderMenu";
+import BoxSignUp from "../layout/BoxSignUp";
 import './page.css';
 import bmwImage from "../assets/images/bmw.jpeg";
-export default function SignIn() {
+
+export default function SignUp() {
     return (
         <div>
-            <HeaderMenu/>
+            <HeaderMenu />
             <div className="loginPageWrapper">
                 <div className="loginCard">
                     <div className="leftSide">
-                        <img src={bmwImage} alt="Car Detail"/>
+                        <img src={bmwImage} alt="Car Detail" />
                     </div>
                     <div className="rightSide">
-                        <BoxSignIn/>
+                        <BoxSignUp />
                     </div>
                 </div>
             </div>
