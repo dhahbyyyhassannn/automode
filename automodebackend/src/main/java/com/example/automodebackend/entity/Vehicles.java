@@ -4,7 +4,7 @@ package com.example.automodebackend.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "Vehicles")
 public class Vehicles {
     @Id
     private String matricule;
@@ -14,6 +14,6 @@ public class Vehicles {
     private int year;
     private int currentMileage;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private Users user;
 }
