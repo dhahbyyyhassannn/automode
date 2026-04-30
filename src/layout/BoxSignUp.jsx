@@ -1,6 +1,6 @@
 import { useState } from 'react'
-
-
+import { createUser } from '../api/userAPI';
+import Swal from 'sweetalert2';
 import layoutStyles from './layoutStyle.module.css'
 
 export default function BoxSignUp() {
@@ -13,6 +13,24 @@ export default function BoxSignUp() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        try {
+            await createUser(user);
+            Swal.fire({
+                title: "account created successfully",
+                icon: "success",
+                confirmButtonText: "OK"
+            })
+            setUser({name: '', email: '', password: '', verifyPassword: ''});
+        }
+        catch (error) {
+            console.error('Error creating user:', error);
+            Swal.fire({
+                title: "Error creating account",
+                text: error.message,
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
     };
 
     const handleChange = (e) => {
