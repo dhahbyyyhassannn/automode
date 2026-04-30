@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/users")
 public class UsersController {
@@ -29,7 +28,7 @@ public class UsersController {
         return repository.save(user);
     }
     @PostMapping("/signin")
-    public Users signIn(@RequestBody Users user) {
+    public Users signInUser(@RequestBody Users user) {
         Optional<Users> userFound = repository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         if (userFound.isEmpty()) {
             throw new RuntimeException("Erreur:Email ou mot de passe incorrect");
