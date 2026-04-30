@@ -115,6 +115,7 @@
 
 .btn:hover {
     color: var(--thirdColor);
+    transform: scale(1.05);
 }
 @media (max-width: 768px) {
     .signInContainer {
@@ -126,3 +127,9 @@
         margin-bottom: 1.8rem;
     }
 }
+.loginSig{
+    text-align: center;
+}
+.aloginSig{
+    color: var(--thirdColor);
+    text-decoration: none;}

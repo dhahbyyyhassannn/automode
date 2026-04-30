@@ -50,6 +50,9 @@ export default function BoxSignIn() {
                     <input className={layoutStyles['input']} type="password" placeholder="••••••••" name="password" value={user.password} onChange={handleChange} required/>
                 </div>
                 <button type="submit" className={layoutStyles['btn']}>Sign In</button>
+                <p className={layoutStyles['loginSig']}>Don’t have an account? <a className={layoutStyles['aloginSig']} href="/signUp"> Sign up here</a></p>
+
+
             </form>
         </div>
     )
