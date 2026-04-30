@@ -11,10 +11,14 @@ export default function BoxSignUp() {
         verifyPassword: ''
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await createUser(user);
+            await createUser({
+                name: user.name,
+                email: user.email,
+                password: user.password 
+            });
             Swal.fire({
                 title: "account created successfully",
                 icon: "success",
@@ -43,7 +47,7 @@ export default function BoxSignUp() {
     return (
         <div className={layoutStyles['signInContainer']}>
             <h2 className={layoutStyles['formTitle']}>Sign Up</h2>
-            <form action={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div className={layoutStyles['formGroup']}>
                     <label className={layoutStyles['Label']}>Name:</label>
                     <input className={layoutStyles['input']} type="text" placeholder="Your name" name="name" value={user.name} onChange={handleChange} required/>

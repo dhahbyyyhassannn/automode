@@ -1,8 +1,11 @@
 package com.example.automodebackend.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 
+
+@Data
 @Entity
 @Table(name = "Users")
 
@@ -11,8 +14,6 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
     private String name;
-    @Getter
     private String email;
-    @Getter
     private String password;
 }
