@@ -1,19 +1,19 @@
 import HeaderMenu from "../layout/HeaderMenu";
 import BoxSignUp from "../layout/BoxSignUp";
 import SignIn from "./SignIn";
-import './page.css';
+import pageStyles from './page.module.css';
 import bmwImage from "../assets/images/bmw.jpeg";
 
 export default function SignUp() {
     return (
         <div>
             <HeaderMenu />
-            <div className="loginPageWrapper">
-                <div className="loginCard">
-                    <div className="leftSide">
+            <div className={pageStyles.loginPageWrapper}>
+                <div className={pageStyles.loginCard}>
+                    <div className={pageStyles.leftSide}>
                         <img src={bmwImage} alt="Car Detail" />
                     </div>
-                    <div className="rightSide">
+                    <div className={pageStyles.rightSide}>
                         <BoxSignUp />
                     </div>
                 </div>

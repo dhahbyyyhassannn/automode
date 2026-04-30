@@ -10,7 +10,7 @@ export default function MenuLink({ icon: Icon, linkName }) {
             onMouseLeave={() => setHovered(false)}
         >
             {Icon && <Icon style= {{
-                color: hovered ? "var(--secondryColor)" : "var(--thirdColor)",
+                color: hovered ? "var(--secondlyColor)" : "var(--thirdColor)",
                 transition: "color 0.5s ease-in-out"
             }} size={24} />}
             <p className={styles.link}>{linkName}</p>

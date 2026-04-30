@@ -18,5 +18,5 @@
     background-color: var(--thirdColor);
 }
 .linkStyle:hover .link {
-    color: var(--secondryColor);
+    color: var(--secondlyColor);
 }
