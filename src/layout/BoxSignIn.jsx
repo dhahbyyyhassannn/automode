@@ -38,7 +38,6 @@ export default function BoxSignIn() {
 
     return (
 
-
         <div className={layoutStyles['signInContainer']}>
             <h2 className={layoutStyles['formTitle']}>Sign In</h2>
             <form>

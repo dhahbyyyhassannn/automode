@@ -15,7 +15,6 @@ export default function SignUp() {
                     </div>
                     <div className="rightSide">
                         <BoxSignUp />
-                        <p>Already have an account? <a href="/signIn">Login here</a></p>
                     </div>
                 </div>
             </div>

@@ -61,6 +61,7 @@ export default function BoxSignUp() {
                     <input className={layoutStyles['input']} type="password" placeholder="••••••••" name="verifyPassword" value={user.verifyPassword} onChange={handleChange} required/>
                 </div>
                 <button type="submit" className={layoutStyles['btn']}>Create Account</button>
+                <p className=''>Already have an account? <a href="/signIn">Login here</a></p>
             </form>
         </div>
     )
