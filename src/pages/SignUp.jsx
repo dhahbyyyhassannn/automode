@@ -1,5 +1,6 @@
 import HeaderMenu from "../layout/HeaderMenu";
 import BoxSignUp from "../layout/BoxSignUp";
+import SignIn from "./SignIn";
 import './page.css';
 import bmwImage from "../assets/images/bmw.jpeg";
 
@@ -14,6 +15,7 @@ export default function SignUp() {
                     </div>
                     <div className="rightSide">
                         <BoxSignUp />
+                        <p>Already have an account? <a href="/signIn">Login here</a></p>
                     </div>
                 </div>
             </div>
