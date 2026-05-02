@@ -45,28 +45,33 @@ export default function BoxSignUp() {
     }
 
     return (
-        <div className={layoutStyles.signInContainer}>
-            <h2 className={layoutStyles.formTitle}>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
-                <div className={layoutStyles.formGroup}>
-                    <label className={layoutStyles.Label}>Name:</label>
-                    <input className={layoutStyles.input} type="text" placeholder="Your name" name="name" value={user.name} onChange={handleChange} required/>
+        <div className={ layoutStyles.signInContainer }>
+            <h2 className={ layoutStyles.formTitle }>Sign Up</h2>
+            <form onSubmit={ handleSubmit }>
+                <div className={ layoutStyles.formGroup }>
+                    <label className={ layoutStyles.Label }>Name:</label>
+                    <input className={ layoutStyles.input } type="text" placeholder="Your name" name="name" value={ user.name } onChange={ handleChange } required/>
                 </div>
-                <div className={layoutStyles.formGroup}>
-                    <label className={layoutStyles.Label}>Email:</label>
-                    <input className={layoutStyles.input} type="email" placeholder="name@example.com" name="email" value={user.email} onChange={handleChange} required/>
+                <div className={ layoutStyles.formGroup }>
+                    <label className={ layoutStyles.Label }>Email:</label>
+                    <input className={ layoutStyles.input } type="email" placeholder="name@example.com" name="email" value={ user.email } onChange={ handleChange } required/>
                 </div>
-                <div className={layoutStyles.formGroup}>
-                    <label className={layoutStyles.Label}>Password:</label>
-                    <input className={layoutStyles.input} type="password" placeholder="••••••••" name="password" value={user.password} onChange={handleChange} required/>
+                <div className={ layoutStyles.formGroup }>
+                    <label className={ layoutStyles.Label }>Password:</label>
+                    <input className={ layoutStyles.input } type="password" placeholder="********" name="password" value={ user.password } onChange={ handleChange } required/>
                 </div>
-                <div className={layoutStyles.formGroup}>
-                    <label className={layoutStyles.Label}>Verify Password:</label>
-                    <input className={layoutStyles.input} type="password" placeholder="••••••••" name="verifyPassword" value={user.verifyPassword} onChange={handleChange} required/>
+                <div className={ layoutStyles.formGroup }>
+                    <label className={ layoutStyles.Label }>Verify Password:</label>
+                    <input className={ layoutStyles.input } type="password" placeholder="********" name="verifyPassword" value={ user.verifyPassword } onChange={ handleChange } required/>
                 </div>
-                <button type="submit" className={layoutStyles.btn}>Create Account</button>
-                 <p className={layoutStyles.loginSig}>Already have an account? <a className={layoutStyles.aloginSig} href="/signIn">Login here</a></p>
-                           </form>
+                <button type="submit" className={ layoutStyles.btn }>Create Account</button>
+                    <p className={ layoutStyles.loginSig }>
+                        Already have an account? 
+                        <a className={ layoutStyles.aloginSig } href="/signIn">
+                            Login here
+                        </a>
+                    </p>
+                </form>
         </div>
     )
 }

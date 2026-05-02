@@ -72,3 +72,46 @@
         padding: 0.8rem 0.6rem 1rem;
     }
 }
+
+.homeIntro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px 10px;
+}
+
+.homeIntroLogo {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+.homeIntroImageLeft {
+    margin-left: 7px;
+}
+
+.homeIntroImageRight {
+    margin-right: 7px;
+}
+
+.homeWelcoming {
+    display: block;
+    margin: auto;
+    padding: auto;
+}
+
+.homeWelcomingTitle {
+    font-family: var(--firstFont);
+    font-size: 55px;
+}
+
+.homeWelcomingSlogan {
+    font-family: var(--secondFont);
+    font-size: 35px;
+}
+
+.homeWelcomingText {
+    font-family: var(--thirdFont);
+    font-size: 20px;
+}
