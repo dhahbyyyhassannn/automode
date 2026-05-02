@@ -16,7 +16,7 @@ export default function HeaderMenu() {
                     <h2 className={layoutStyles.titleText}>Auto Mode</h2>
                 </li>
                 <li className={layoutStyles.links}>
-                    <MenuLink icon={ House } linkName={ "home" } />
+                    <MenuLink icon={ House } linkName={ "home" } path={ "/" } />
                     <MenuLink icon={ Bookmark } linkName={ "saved" } />
                     <MenuLink icon={ InfoCircleFill } linkName={ "about" } />
                 </li>
