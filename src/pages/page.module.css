@@ -101,11 +101,6 @@
     margin-right: 7px;
 }
 
-.homeWelcoming {
-    display: block;
-    margin: auto;
-    padding: auto;
-}
 
 .homeWelcomingTitle {
     color: var(--secondlyColor);
@@ -118,10 +113,6 @@
 
 .homeWelcomingSlogan {
     font-family: var(--secondFont);
-    font-size: 35px;
-}
-
-.homeWelcomingText {
-    font-family: var(--thirdFont);
-    font-size: 20px;
+    font-size: 30px;
+    text-align: center;
 }

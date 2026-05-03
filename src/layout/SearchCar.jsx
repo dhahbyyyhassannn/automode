@@ -17,7 +17,6 @@ export default function SearchCar() {
             <h5>
                 and find the information you need to make the best decision !
             </h5>
-            
         </div>
     )
 }
