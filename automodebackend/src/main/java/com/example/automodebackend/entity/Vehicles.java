@@ -13,6 +13,8 @@ public class Vehicles {
     private String type;
     private int year;
     private int currentMileage;
+    @Column(columnDefinition = "BYTEA")
+    private byte[] image;
     @ManyToOne
     @JoinColumn(name = "userId")
     private Users user;
