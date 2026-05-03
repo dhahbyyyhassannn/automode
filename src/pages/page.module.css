@@ -6,6 +6,12 @@
     margin: 0 auto;
     padding: 2rem;
 }
+.homeIntro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px 10px;
+}
 
 .loginCard {
     width: 100%;
@@ -97,6 +103,8 @@
 
 
 .homeWelcomingTitle {
+    color: var(--secondlyColor);
+    width: 100%;
     font-family: var(--firstFont);
     font-size: 50px;
     text-align: center;

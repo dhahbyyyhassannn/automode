@@ -1,4 +1,5 @@
 import HeaderMenu from "../layout/HeaderMenu";
+import SearchCar from "../layout/SearchCar";
 import rporsche from "../assets/images/porsche-taycan right view.png";
 import lporsche from "../assets/images/porsche-taycan left view.png";
 import darkerLogo from "../assets/logos/darker logo.png";
@@ -7,7 +8,7 @@ import SearchCar from "../layout/SearchCar";
 
 export default function HomePage() {
     return (
-        <div>
+        <div className={ pageStyle.homePage }>
             <HeaderMenu />
             <div className={ pageStyle.homeIntro }>
                 <img src={lporsche} alt="" className={pageStyle.homeIntroImageLeft}/>
@@ -25,6 +26,7 @@ export default function HomePage() {
                     <SearchCar />
                 </div>
             </div>
+            <SearchCar/>
         </div>
             
     )
