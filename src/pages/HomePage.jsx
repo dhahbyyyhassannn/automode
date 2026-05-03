@@ -14,7 +14,7 @@ export default function HomePage() {
                 <img src={ darkerLogo } className={ pageStyle.homeIntroLogo } alt=""/>
                 <img src={rporsche} alt="" className={pageStyle.homeIntroImageRight}/>
             </div>
-            <div className={ pageStyle.homeWelcoming }>
+            <div>
                 <h2 className={ pageStyle.homeWelcomingTitle }>
                     Welcome to Auto Mode
                 </h2>
@@ -22,30 +22,30 @@ export default function HomePage() {
                     Your best destination for getting your dream car at the best price, with the best quality and the best service.
                 </h3>
                 <h6 className={ pageStyle.homeWelcomingText }>
-                     <h2>in this website you can</h2>
-                    <ul className={ pageStyle.homeFeatures }>
-                        <li className={ pageStyle.homeFeatureItem }>
+                    in this website you can
+                    <ul>
+                        <li>
                             Browse our selection of cars
                         </li>
-                        <li className={ pageStyle.homeFeatureItem }>
+                        <li>
                             find it's price
                         </li>
-                        <li className={ pageStyle.homeFeatureItem }>
+                        <li>
                             find it's expenses
                         </li>
-                        <li className={ pageStyle.homeFeatureItem }>
+                        <li>
                             find it's specifications
                         </li>
-                        <li className={ pageStyle.homeFeatureItem }>
+                        <li>
                             find it's reviews
                         </li>
-                        <li className={ pageStyle.homeFeatureItem }>
+                        <li>
                             and more...
                         </li>
                     </ul>
                 </h6>
             </div>
-            <SearchCar />
+            <SearchCar/>
         </div>
             
     )

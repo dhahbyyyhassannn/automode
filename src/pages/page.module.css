@@ -100,11 +100,8 @@
 .homeIntroImageRight {
     margin-right: 7px;
 }
-li{
-    list-style-type: none;
-}
+
 .homeWelcoming {
-    text-align: center;
     display: block;
     margin: auto;
     padding: auto;
@@ -114,39 +111,17 @@ li{
     color: var(--secondlyColor);
     width: 100%;
     font-family: var(--firstFont);
-    font-size: 55px;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 10px;
 }
 
-.homeWelcomingSlogan {     
-    color: var(--secondlyColor);
-    font-family:var(--secondFont);
-    padding-left: 200px;
-    padding-right: 200px;
+.homeWelcomingSlogan {
+    font-family: var(--secondFont);
     font-size: 35px;
 }
 
 .homeWelcomingText {
-    font-family: var(--secondFont);
-    font-size: 20px;
-}
-.homeFeatures {
-    background-color: var(--secondlyColor); 
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-}
-.homeFeatureItem {
-    color: aliceblue ;
     font-family: var(--thirdFont);
     font-size: 20px;
-}
-.pageWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 80px);
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 2rem;
 }
