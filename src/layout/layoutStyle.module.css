@@ -66,7 +66,7 @@
 }
 
 .formGroup {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-align: left;
 }
 
@@ -80,12 +80,12 @@
 }
 
 .input {
-    width: 100%;
-    padding: 14px 16px;
+    width: 90%;
+    padding: 10px 12px;
     border: 1.5px solid #d8dde3;
-    border-radius: 14px;
+    border-radius: 12px;
     font-family: var(--linkFont);
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--thirdColor);
     background: linear-gradient(180deg, #fcfdff 0%, #f7f9fc 100%);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
@@ -117,14 +117,142 @@
     color: var(--thirdColor);
     transform: scale(1.05);
 }
+
+.stepIndicator {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-family: var(--linkFont);
+    color: rgba(11, 42, 65, 0.75);
+    font-size: 0.95rem;
+}
+
+.formCard {
+    margin-bottom: 1.25rem;
+    padding: 1.1rem 1.1rem 0.2rem;
+    border: 1px solid rgba(11, 42, 65, 0.12);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 248, 251, 0.96));
+    box-shadow: 0 12px 28px rgba(2, 27, 43, 0.06);
+}
+
+.sectionTitle {
+    margin: 0 0 1rem;
+    font-family: var(--titleFont);
+    font-size: 1.15rem;
+    color: var(--thirdColor);
+}
+
+.sectionHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.5rem 0.75rem;
+}
+
+.repeatableExpenseCard {
+    margin-bottom: 0.85rem;
+    padding: 0.9rem;
+    border-radius: 16px;
+    border: 1px dashed rgba(11, 42, 65, 0.18);
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.repeatableExpenseHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.7rem;
+}
+
+.repeatableExpenseIndex {
+    font-family: var(--linkFont);
+    font-weight: 700;
+    color: var(--thirdColor);
+}
+
+.secondaryBtn,
+.linkBtn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--buttonFont);
+    font-weight: 700;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.secondaryBtn {
+    padding: 0.8rem 1rem;
+    border-radius: 999px;
+    background: rgba(11, 42, 65, 0.08);
+    color: var(--thirdColor);
+    white-space: nowrap;
+}
+
+.linkBtn {
+    color: #8a3a2e;
+    padding: 0.25rem 0;
+}
+
+.secondaryBtn:hover,
+.linkBtn:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+.formActions {
+    display: flex;
+    gap: 0.65rem;
+    margin-top: 0.85rem;
+}
+
+.secondaryAction {
+    flex: 1;
+    padding: 15px;
+    background: #ffffff;
+    color: var(--thirdColor);
+    border: 1px solid rgba(11, 42, 65, 0.18);
+    border-radius: 14px;
+    font-family: var(--buttonFont);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.secondaryAction:hover {
+    transform: scale(1.03);
+}
+
 @media (max-width: 768px) {
     .signInContainer {
         padding: 2rem 1.4rem;
         border-radius: 20px;
     }
-   .formTitle {
+
+    .formTitle {
         font-size: 1.9rem;
         margin-bottom: 1.8rem;
+    }
+
+    .formActions,
+    .sectionHeaderRow,
+    .repeatableExpenseHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .secondaryAction,
+    .secondaryBtn {
+        width: 100%;
     }
 }
 .loginSig{
