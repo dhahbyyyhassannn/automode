@@ -1,22 +1,27 @@
-import { Search } from "react-bootstrap-icons"
-import layoutStyle from "./layoutStyle.module.css"
+import { useState, useEffect } from 'react';
+import { Search } from "react-bootstrap-icons";
+import layoutStyle from "./layoutStyle.module.css";
 
+export default function SearchBar({ onSearch }) {
+    const [keyword, setKeyword] = useState("");
 
-export default function SearchCar() {
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {onSearch(keyword);}, 300);
+        return () => clearTimeout(delayDebounceFn);
+    }, [keyword, onSearch]);
+
     return (
-        <div className={layoutStyle.searchCarContainer}>
-            <h3>
-                Search a car
-            </h3>
-            <div className={layoutStyle.searchBar}>
-                <button>
-                    <Search />
-                </button>
-                <input type="text" placeholder="Search for a car..." name="search"/>
-            </div>
-            <h5>
-                and find the information you need to make the best decision !
-            </h5>
+        <div className={layoutStyle.searchBar}>
+            <button className={layoutStyle.btn} type="button">
+                <Search />
+            </button>
+            <input
+                className={layoutStyle.input}
+                type="text"
+                placeholder="Chercher une marque ou modèle..."
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+            />
         </div>
-    )
+    );
 }

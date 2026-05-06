@@ -116,3 +116,11 @@
     font-size: 30px;
     text-align: center;
 }
+.pageWrapper{
+   display: flex;
+   justify-content: center;
+ margin: 0 auto;
+}
+.SpanhomeWelcomingTitle {
+    color: var(--thirdColor);
+}

@@ -77,11 +77,11 @@ export default function AddCarForm() {
                         type="file"
                         name="images"
                         accept="image/*"
-                        multiple //bech najmou nekhtarou akther men image
+                        
                     />
                 </div>
 
-                <button type="submit" className={layoutStyles.btn}>Add Vehicle</button>
+                <button type="submit"  className={layoutStyles.btn}>Add Vehicle</button>
             </form>
         </div>
     )
