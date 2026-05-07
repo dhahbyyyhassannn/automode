@@ -3,7 +3,7 @@ import AuthButton from '../components/buttons/AuthButton'
 import styles from '../components/buttons/buttonStyle.module.css'
 import layoutStyles from './layoutStyle.module.css'
 import MenuLink from '../components/links/MenuLink'
-import { House } from 'react-bootstrap-icons'
+import { House, PlusCircle } from 'react-bootstrap-icons'
 import { Bookmark } from 'react-bootstrap-icons'
 import { InfoCircleFill } from 'react-bootstrap-icons'
 
@@ -19,6 +19,7 @@ export default function HeaderMenu() {
                     <MenuLink icon={ House } linkName={ "home" } path={ "/" } />
                     <MenuLink icon={ Bookmark } linkName={ "saved" } />
                     <MenuLink icon={ InfoCircleFill } linkName={ "about" } />
+                    <MenuLink icon={ PlusCircle } linkName={ "add a car" } path={ "/addCar" } />
                 </li>
                 <li className={layoutStyles.buttons}>
 

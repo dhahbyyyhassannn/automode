@@ -1,8 +1,8 @@
 import layoutStyles from './layoutStyle.module.css';
 
 export default function FuelExpenseForm({ onBack, onNext }) {
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
         onNext();
     };
 

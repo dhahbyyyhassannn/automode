@@ -3,13 +3,66 @@ import layoutStyles from './layoutStyle.module.css';
 import FuelExpenseForm from './FuelExpenseForm';
 import OilChangeExpenseForm from './OilChangeExpenseForm';
 import RepairExpenseForm from './RepairExpenseForm';
+import { jwtDecode } from 'jwt-decode';
+import { AddCar } from '../api/carAPI';
+import Swal from 'sweetalert2';
 
 export default function AddCarForm() {
     const [step, setStep] = useState(0);
+    const [vehicle, setVehicle] = useState({
+        matricule: '',
+        brand: '',
+        model: '',
+        type: '',
+        year: '',
+        currentMileage: '',
+        image: null
+    });
 
-    const handleVehicleSubmit = (event) => {
-        event.preventDefault();
-        setStep(1);
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+
+    const handleChange = (e) => {
+        const { name, value, files } = e.target;
+        setVehicle({
+            ...vehicle,
+            [name]: files ? files[0] : value,
+            userId: decoded.id
+        });
+    }
+
+    const handleVehicleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const formData = new FormData();
+
+            formData.append("matricule", vehicle.matricule);
+            formData.append("brand", vehicle.brand);
+            formData.append("model", vehicle.model);
+            formData.append("type", vehicle.type);
+            formData.append("year", vehicle.year);
+            formData.append("currentMileage", vehicle.currentMileage);
+            formData.append("userId", vehicle.userId);
+
+            if (vehicle.image) {
+                formData.append("image", vehicle.image);
+            }
+            await AddCar(formData);
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Vehicle added successfully!',
+            });
+            setStep(1);
+        } catch (error) {
+            console.error("Error adding car:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to add vehicle.',
+            });
+        }
+        
     };
 
     return (
@@ -21,37 +74,37 @@ export default function AddCarForm() {
                 <form onSubmit={handleVehicleSubmit}>
                     <div className={layoutStyles.formGroup}>
                         <label className={layoutStyles.Label}>Matricule:</label>
-                        <input className={layoutStyles.input} type="text" placeholder="Vehicle registration number" name="matricule" required />
+                        <input className={layoutStyles.input} type="text" placeholder="Vehicle registration number" name="matricule" onChange={handleChange} required />
                     </div>
 
                     <div className={layoutStyles.formGroup}>
                         <label className={layoutStyles.Label}>Brand:</label>
-                        <input className={layoutStyles.input} type="text" placeholder="BMW, Mercedes, Toyota" name="brand" required />
+                        <input className={layoutStyles.input} type="text" placeholder="BMW, Mercedes, Toyota" name="brand" onChange={handleChange} required />
                     </div>
 
                     <div className={layoutStyles.formGroup}>
                         <label className={layoutStyles.Label}>Model:</label>
-                        <input className={layoutStyles.input} type="text" placeholder="X5, G-Class, Camry" name="model" required />
+                        <input className={layoutStyles.input} type="text" placeholder="X5, G-Class, Camry" name="model" onChange={handleChange} required />
                     </div>
 
                     <div className={layoutStyles.formGroup}>
                         <label className={layoutStyles.Label}>Type:</label>
-                        <input className={layoutStyles.input} type="text" placeholder="SUV, Sedan, Truck" name="type" required />
+                        <input className={layoutStyles.input} type="text" placeholder="SUV, Sedan, Truck" name="type" onChange={handleChange} required />
                     </div>
 
                     <div className={layoutStyles.formGroup}>
                         <label className={layoutStyles.Label}>Year:</label>
-                        <input className={layoutStyles.input} type="number" name="year" required />
+                        <input className={layoutStyles.input} type="number" name="year" onChange={handleChange} required />
                     </div>
 
                     <div className={layoutStyles.formGroup}>
                         <label className={layoutStyles.Label}>Current Mileage (km):</label>
-                        <input className={layoutStyles.input} type="number" placeholder="50000" name="currentMileage" required />
+                        <input className={layoutStyles.input} type="number" placeholder="50000" name="currentMileage" onChange={handleChange} required />
                     </div>
 
                     <div className={layoutStyles.formGroup}>
                         <label className={layoutStyles.Label}>Vehicle Images:</label>
-                        <input className={layoutStyles.input} type="file" name="images" accept="image/*" />
+                        <input className={layoutStyles.input} type="file" name="images" accept="image/*" onChange={handleChange} />
                     </div>
 
                     <button type="submit" className={layoutStyles.btn}>Next: Fuel expense</button>

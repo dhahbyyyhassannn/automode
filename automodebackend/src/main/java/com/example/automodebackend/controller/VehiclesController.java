@@ -2,6 +2,7 @@ package com.example.automodebackend.controller;
 
 import com.example.automodebackend.entity.Vehicles;
 import com.example.automodebackend.repository.VehiclesRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class VehiclesController {
     }
 
     @PostMapping("/addVehicle")
+    @PreAuthorize("hasRole('ADMIN')")
     public Vehicles addVehicle(@RequestBody Vehicles vehicle) {
         return vehiclesRepository.save(vehicle);
     }

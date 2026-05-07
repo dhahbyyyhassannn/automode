@@ -2,7 +2,6 @@ import HeaderMenu from "../layout/HeaderMenu";
 import rporsche from "../assets/images/porsche-taycan right view.png";
 import lporsche from "../assets/images/porsche-taycan left view.png";
 import darkerLogo from "../assets/logos/darker logo.png";
-import CarBrowser from "../layout/CarBrowser";
 import pageStyle from "./page.module.css";
 
 export default function HomePage() {
@@ -21,9 +20,6 @@ export default function HomePage() {
                 <h3 className={ pageStyle.homeWelcomingSlogan }>
                     Your best destination for getting your dream car at the best price, with the best quality and the best service.
                 </h3>
-                <div className="">
-                    <CarBrowser />
-                </div>
             </div>
         </div>
             
