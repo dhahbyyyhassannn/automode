@@ -21,22 +21,20 @@ export default function BoxSignIn() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log('User signed in successfully');
-            await signInUser(user);
-            Swal.fire({
-                title: "Signed in successfully",
-                icon: "success",
-                confirmButtonText: "OK"
-            })
-            setUser({ email: '', password: '' });
-            navigation('/');
+            const token = await signInUser(user);
+            if (token) {
+                navigation('/');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'You have successfully signed in!',
+                });
+            }
         } catch (error) {
-            console.error('Error signing in user:', error);
-            Swal.fire({
-                title: "Error signing in",
-                text: error.message,
-                icon: "error",
-                confirmButtonText: "OK"
+                Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to sign in. Please check your credentials and try again.',
             });
         }
     };
