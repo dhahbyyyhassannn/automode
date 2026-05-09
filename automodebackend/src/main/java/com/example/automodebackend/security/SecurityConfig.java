@@ -26,6 +26,9 @@ public class SecurityConfig {
 
     @Autowired
     UsersRepository usersRepository;
+    
+    @Autowired
+    JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -33,17 +36,18 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
                     config.setAllowedOrigins(List.of("http://localhost:3000")); // React URL
-                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true);
                     return config;}))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").hasAuthority("ADMIN")
                         .requestMatchers("/signInUser", "/createUser").permitAll()
+                        .requestMatchers("/search", "/random").permitAll()
                         .anyRequest().authenticated())
                         .sessionManagement(session -> session.
                                 sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                                 .build();
     }
 

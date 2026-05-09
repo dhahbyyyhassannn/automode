@@ -2,9 +2,13 @@ package com.example.automodebackend.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Vehicles")
+@Getter
+@Setter
 public class Vehicles {
     @Id
     private String matricule;

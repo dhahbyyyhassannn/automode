@@ -42,6 +42,10 @@ public class UsersController {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
         );
-        return jwtUtil.generateToken(user.getEmail());
+    Optional<Users> dbUser = repository.findByEmail(user.getEmail());
+        if (dbUser.isPresent()) {
+            return jwtUtil.generateToken(user.getEmail(), dbUser.get().getUserId());
+        }
+        throw new RuntimeException("Utilisateur non trouvé");
     }
 }

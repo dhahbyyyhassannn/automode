@@ -11,9 +11,10 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    public String generateToken(String username) {
+    public String generateToken(String username, int userId) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("userId", userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes())
@@ -27,6 +28,8 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
+
+    
 
     public boolean isTokenValid(String token) {
         try {

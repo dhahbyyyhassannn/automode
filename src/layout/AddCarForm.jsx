@@ -3,7 +3,6 @@ import layoutStyles from './layoutStyle.module.css';
 import FuelExpenseForm from './FuelExpenseForm';
 import OilChangeExpenseForm from './OilChangeExpenseForm';
 import RepairExpenseForm from './RepairExpenseForm';
-import { jwtDecode } from 'jwt-decode';
 import { AddCar } from '../api/carAPI';
 import Swal from 'sweetalert2';
 
@@ -19,15 +18,11 @@ export default function AddCarForm() {
         image: null
     });
 
-    const token = localStorage.getItem("token");
-    const decoded = jwtDecode(token);
-
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         setVehicle({
             ...vehicle,
-            [name]: files ? files[0] : value,
-            userId: decoded.id
+            [name]: files ? files[0] : value
         });
     }
 
@@ -42,7 +37,6 @@ export default function AddCarForm() {
             formData.append("type", vehicle.type);
             formData.append("year", vehicle.year);
             formData.append("currentMileage", vehicle.currentMileage);
-            formData.append("userId", vehicle.userId);
 
             if (vehicle.image) {
                 formData.append("image", vehicle.image);
@@ -63,6 +57,24 @@ export default function AddCarForm() {
             });
         }
         
+    };
+
+    const handleFinalSubmit = async () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Done',
+            text: 'All expenses submitted successfully!',
+        });
+        setStep(0);
+        setVehicle({
+            matricule: '',
+            brand: '',
+            model: '',
+            type: '',
+            year: '',
+            currentMileage: '',
+            image: null
+        });
     };
 
     return (
@@ -113,7 +125,7 @@ export default function AddCarForm() {
 
             {step === 1 && <FuelExpenseForm onBack={() => setStep(0)} onNext={() => setStep(2)} />}
             {step === 2 && <OilChangeExpenseForm onBack={() => setStep(1)} onNext={() => setStep(3)} />}
-            {step === 3 && <RepairExpenseForm onBack={() => setStep(2)} />}
+            {step === 3 && <RepairExpenseForm onBack={() => setStep(2)} onSubmit={handleFinalSubmit} />}
         </div>
     );
 }

@@ -6,7 +6,7 @@ const createRepairExpense = () => ({
     nextChangeMiles: '',
 });
 
-export default function RepairExpenseForm({ onBack }) {
+export default function RepairExpenseForm({ onBack, onSubmit }) {
     const [repairExpenses, setRepairExpenses] = useState([createRepairExpense()]);
 
     const addRepairExpense = () => {
@@ -25,8 +25,15 @@ export default function RepairExpenseForm({ onBack }) {
         );
     };
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (onSubmit) {
+            onSubmit(repairExpenses);
+        }
+    };
+
     return (
-        <form className={layoutStyles.formCard} onSubmit={(event) => event.preventDefault()}>
+        <form className={layoutStyles.formCard} onSubmit={handleSubmit}>
             <div className={layoutStyles.sectionHeaderRow}>
                 <h3 className={layoutStyles.sectionTitle}>Repair expense</h3>
                 <button type="button" className={layoutStyles.secondaryBtn} onClick={addRepairExpense}>
