@@ -6,8 +6,14 @@ import MenuLink from '../components/links/MenuLink'
 import { House, PlusCircle } from 'react-bootstrap-icons'
 import { Bookmark } from 'react-bootstrap-icons'
 import { InfoCircleFill } from 'react-bootstrap-icons'
-
+import authAPI from '../api/AuthAPI'
+import { logout } from '../api/LogoutAPI'
 export default function HeaderMenu() {
+    const user = authAPI();
+    const handleLogout = (e) => {
+        e.preventDefault();
+        logout();
+    }
     return (
         <nav className={layoutStyles.header}>
             <ul className={layoutStyles.list}>
@@ -21,11 +27,19 @@ export default function HeaderMenu() {
                     <MenuLink icon={ InfoCircleFill } linkName={ "about" } />
                     <MenuLink icon={ PlusCircle } linkName={ "add a car" } path={ "/addCar" } />
                 </li>
-                <li className={layoutStyles.buttons}>
-
-                    <AuthButton link="/signin" text="Sign In" style={styles.signInButton} linkStyle={ styles.signInLink }/>
-                    <AuthButton link="/signup" text="Sign Up" style={styles.signUpButton} linkStyle={ styles.signUpLink } />
-                </li>
+                {user==null && (
+                    <li className={layoutStyles.buttons}>
+                        <AuthButton link="/signIn" text="Profile" style={styles.signInButton} linkStyle={ styles.signInLink }/>
+                        <AuthButton link="/signUp" text="Sign Out" style={styles.signUpButton} linkStyle={ styles.signUpLink } />
+                    </li>
+                )}
+                {user!=null && (
+                    <li className={layoutStyles.buttons}>
+                        <h5>welcome, {user.name}!</h5>
+                        <AuthButton link="/signIn" text="Profile" style={styles.signInButton} linkStyle={ styles.signInLink }/>
+                        <AuthButton link="/" text="Logout" style={styles.signUpButton} linkStyle={ styles.signUpLink } onClick={handleLogout} />
+                    </li> 
+                )}
             </ul>
         </nav>
     )
