@@ -29,14 +29,14 @@ export default function HeaderMenu() {
                 </li>
                 {user==null && (
                     <li className={layoutStyles.buttons}>
-                        <AuthButton link="/signIn" text="Profile" style={styles.signInButton} linkStyle={ styles.signInLink }/>
-                        <AuthButton link="/signUp" text="Sign Out" style={styles.signUpButton} linkStyle={ styles.signUpLink } />
+                        <AuthButton link="/signIn" text="sign in" style={styles.signInButton} linkStyle={ styles.signInLink }/>
+                        <AuthButton link="/signUp" text="Sign up" style={styles.signUpButton} linkStyle={ styles.signUpLink } />
                     </li>
                 )}
                 {user!=null && (
                     <li className={layoutStyles.buttons}>
                         <h5>welcome, {user.name}!</h5>
-                        <AuthButton link="/signIn" text="Profile" style={styles.signInButton} linkStyle={ styles.signInLink }/>
+                        <AuthButton link="" text="Profile" style={styles.signInButton} linkStyle={ styles.signInLink }/>
                         <AuthButton link="/" text="Logout" style={styles.signUpButton} linkStyle={ styles.signUpLink } onClick={handleLogout} />
                     </li> 
                 )}

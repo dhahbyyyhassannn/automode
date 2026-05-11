@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import AddCarPage from './pages/AddCarPage';
+import AddFuelExpensesPage from './pages/AddFuelExpensesPage';
+import OilChangePage from './pages/OilChangePage';
 function App() {
   return (
     <Routes>
@@ -11,6 +13,8 @@ function App() {
       <Route path="/signin" element={<SignIn/>} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/addCar" element={<AddCarPage />} />
+      <Route path="/fuelForm" element={<AddFuelExpensesPage />} />
+      <Route path="/oilChange" element={<OilChangePage />} />
     </Routes>
   );
 }

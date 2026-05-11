@@ -5,8 +5,10 @@ import OilChangeExpenseForm from './OilChangeExpenseForm';
 import RepairExpenseForm from './RepairExpenseForm';
 import { AddCar } from '../api/carAPI';
 import Swal from 'sweetalert2';
+import { useNavigate, useNavigation } from 'react-router-dom';
 
 export default function AddCarForm() {
+    const navigation = useNavigate();
     const [step, setStep] = useState(0);
     const [vehicle, setVehicle] = useState({
         matricule: '',
@@ -47,7 +49,7 @@ export default function AddCarForm() {
                 title: 'Success',
                 text: 'Vehicle added successfully!',
             });
-            setStep(1);
+            navigation("/fuelForm");
         } catch (error) {
             console.error("Error adding car:", error);
             Swal.fire({
@@ -119,7 +121,7 @@ export default function AddCarForm() {
                         <input className={layoutStyles.input} type="file" name="images" accept="image/*" onChange={handleChange} />
                     </div>
 
-                    <button type="submit" className={layoutStyles.btn}>Next: Fuel expense</button>
+                    <button type="submit" className={layoutStyles.btn }>Next: Fuel expense</button>
                 </form>
             )}
 
