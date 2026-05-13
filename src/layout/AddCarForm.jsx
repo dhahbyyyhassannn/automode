@@ -5,9 +5,9 @@ import OilChangeExpenseForm from './OilChangeExpenseForm';
 import RepairExpenseForm from './RepairExpenseForm';
 import { AddCar } from '../api/carAPI';
 import Swal from 'sweetalert2';
-import { useNavigate, useNavigation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function AddCarForm() {
+export default function AddCarForm({ onSuccess, isDashboard = false }) {
     const navigation = useNavigate();
     const [step, setStep] = useState(0);
     const [vehicle, setVehicle] = useState({
@@ -49,7 +49,13 @@ export default function AddCarForm() {
                 title: 'Success',
                 text: 'Vehicle added successfully!',
             });
-            navigation("/fuelForm");
+            
+            // Si on est dans le dashboard, appeler le callback au lieu de rediriger
+            if (isDashboard && onSuccess) {
+                onSuccess();
+            } else {
+                navigation("/fuelForm");
+            }
         } catch (error) {
             console.error("Error adding car:", error);
             Swal.fire({
@@ -77,12 +83,17 @@ export default function AddCarForm() {
             currentMileage: '',
             image: null
         });
+        
+        // Si on est dans le dashboard, appeler le callback au lieu de rediriger
+        if (isDashboard && onSuccess) {
+            onSuccess();
+        }
     };
 
     return (
         <div className={layoutStyles.signInContainer}>
             <h2 className={layoutStyles.formTitle}>Add Vehicle</h2>
-            <div className={layoutStyles.stepIndicator}>Step {step + 1} of 4</div>
+            <div className={layoutStyles.stepIndicator}>Step {step + 1} of {isDashboard ? 1 : 4}</div>
 
             {step === 0 && (
                 <form onSubmit={handleVehicleSubmit}>

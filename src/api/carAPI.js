@@ -1,13 +1,17 @@
 import axios from "axios";
 
-export const AddCar = async (car) => {
 
+const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
+    return {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+};
 
+export const AddCar = async (car) => {
     return await axios.post('http://localhost:8090/addVehicle', car, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
+        headers: getAuthHeaders()
     })
 }
 
@@ -17,8 +21,42 @@ export const searchCar = async (keyword) => {
     });
 }
 
+export const getCar = async (matricule) => {
+    try {
+        const response = await axios.get('http://localhost:8090/getVehicle/' + matricule);
+        return response.data;
+    } catch (error) {
+        console.error("Get car failed:", error.response?.data || error.message);
+        throw error;
+    }
+};
+
 export const getRandomCars = async (limit = 3) => {
     return await axios.get('http://localhost:8090/random', {
         params: { limit }
     });
 }
+
+export const getUserVehicles = async () => {
+    try {
+        const response = await axios.get('http://localhost:8090/getUserVehicles', {
+            headers: getAuthHeaders()
+        });
+        return response.data || [];
+    } catch (error) {
+        console.error("Get user vehicles failed:", error.response?.data || error.message);
+        throw error;
+    }
+};
+
+export const deleteVehicle = async (vehicleId) => {
+    try {
+        const response = await axios.delete('http://localhost:8090/deleteVehicle/' + vehicleId, {
+            headers: getAuthHeaders()
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Delete vehicle failed:", error.response?.data || error.message);
+        throw error;
+    }
+};

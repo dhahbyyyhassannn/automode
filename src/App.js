@@ -7,6 +7,7 @@ import AddCarPage from './pages/AddCarPage';
 import AddFuelExpensesPage from './pages/AddFuelExpensesPage';
 import OilChangePage from './pages/OilChangePage';
 import CarDetails from './pages/CarDetails';
+import DashboardPage from './pages/DashboardPage';
 function App() {
   return (
     <Routes>
@@ -17,6 +18,7 @@ function App() {
       <Route path="/fuelForm" element={<AddFuelExpensesPage />} />
       <Route path="/oilChange" element={<OilChangePage />} />
       <Route path="/car/:matricule" element={<CarDetails />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
     </Routes>
   );
 }

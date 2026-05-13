@@ -36,7 +36,7 @@ export default function HeaderMenu() {
                 {user!=null && (
                     <li className={layoutStyles.buttons}>
                         <h5>welcome, {user.name}!</h5>
-                        <AuthButton link="" text="Profile" style={styles.signInButton} linkStyle={ styles.signInLink }/>
+                        <AuthButton link="/dashboard" text="Profile" style={styles.signInButton} linkStyle={ styles.signInLink }/>
                         <AuthButton link="/" text="Logout" style={styles.signUpButton} linkStyle={ styles.signUpLink } onClick={handleLogout} />
                     </li> 
                 )}

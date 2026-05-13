@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import layoutStyle from './page.module.css';
-import { searchCar } from '../api/carAPI';
+import { getCar } from '../api/carAPI';
 
 export default function CarDetails() {
   const { matricule } = useParams();
@@ -12,12 +12,8 @@ export default function CarDetails() {
     if (!matricule) return;
     const load = async () => {
       try {
-        const res = await searchCar(matricule);
-        if (res.data && res.data.length > 0) {
-          setCar(res.data[0]);
-        } else {
-          setCar(null);
-        }
+        const res = await getCar(matricule);
+        setCar(res);
       } catch (e) {
         console.error('Failed to load car', e);
         setCar(null);
