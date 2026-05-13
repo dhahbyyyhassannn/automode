@@ -1,20 +1,31 @@
 import layoutStyle from './layoutStyle.module.css';
+import CarCard from '../components/CarCard';
+import { useNavigate } from 'react-router-dom';
 
 export default function SearchResults({ cars }) {
+    const navigate = useNavigate();
+    const formatImage = (img) => {
+        if (!img) return null;
+        if (typeof img === 'string') {
+            return img.startsWith('data:') ? img : `data:image/jpeg;base64,${img}`;
+        }
+        return null;
+    };
+
     return (
         <div>
             <h2 className={layoutStyle.sectionTitle}>Résultats de recherche</h2>
             <div className={layoutStyle.cardGrid}>
                 {cars.length > 0 ? (
                     cars.map((car) => (
-                        <div key={car.matricule} className={layoutStyle.carCard}>
-                            <div className={layoutStyle.carImageContainer}>
-                                <span style={{ color: '#ccc' }}>Image</span>
-                            </div>
-                            <h3 className={layoutStyle.carTitle}>{car.brand} {car.model}</h3>
-                            <p className={layoutStyle.carDetails}>{car.year} • {car.currentMileage} km</p>
-                            <button className={layoutStyle.btn}>Voir détails</button>
-                        </div>
+                        <CarCard
+                            key={car.matricule}
+                            brand={car.brand}
+                            model={car.model}
+                            type={car.type}
+                            image={formatImage(car.image)}
+                            onClick={() => navigate(`/car/${encodeURIComponent(car.matricule)}`)}
+                        />
                     ))
                 ) : (
                     <p className={layoutStyle.noResults}>Aucun véhicule trouvé.</p>

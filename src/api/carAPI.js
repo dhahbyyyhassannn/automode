@@ -10,3 +10,15 @@ export const AddCar = async (car) => {
         }
     })
 }
+
+export const searchCar = async (keyword) => {
+    return await axios.get('http://localhost:8090/search', {
+        params: { keyword }
+    });
+}
+
+export const getRandomCars = async (limit = 3) => {
+    return await axios.get('http://localhost:8090/random', {
+        params: { limit }
+    });
+}

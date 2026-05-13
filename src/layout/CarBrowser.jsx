@@ -1,4 +1,3 @@
-/*
 import { useState, useEffect } from 'react';
 import { searchCar, getRandomCars } from '../api/carAPI';
 import SearchCar from './SearchCar';
@@ -54,5 +53,3 @@ export default function CarBrowser() {
         </div>
     );
 }
-
-*/

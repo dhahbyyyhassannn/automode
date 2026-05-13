@@ -29,8 +29,8 @@ export default function HeaderMenu() {
                 </li>
                 {user==null && (
                     <li className={layoutStyles.buttons}>
-                        <AuthButton link="/signIn" text="sign in" style={styles.signInButton} linkStyle={ styles.signInLink }/>
-                        <AuthButton link="/signUp" text="Sign up" style={styles.signUpButton} linkStyle={ styles.signUpLink } />
+                        <AuthButton link="/signin" text="sign in" style={styles.signInButton} linkStyle={styles.signInLink} />
+                        <AuthButton link="/signup" text="Sign up" style={styles.signUpButton} linkStyle={styles.signUpLink} />
                     </li>
                 )}
                 {user!=null && (

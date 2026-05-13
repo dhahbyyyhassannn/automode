@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import AddCarPage from './pages/AddCarPage';
 import AddFuelExpensesPage from './pages/AddFuelExpensesPage';
 import OilChangePage from './pages/OilChangePage';
+import CarDetails from './pages/CarDetails';
 function App() {
   return (
     <Routes>
@@ -15,6 +16,7 @@ function App() {
       <Route path="/addCar" element={<AddCarPage />} />
       <Route path="/fuelForm" element={<AddFuelExpensesPage />} />
       <Route path="/oilChange" element={<OilChangePage />} />
+      <Route path="/car/:matricule" element={<CarDetails />} />
     </Routes>
   );
 }
