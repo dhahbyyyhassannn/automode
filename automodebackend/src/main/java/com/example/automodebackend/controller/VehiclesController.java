@@ -102,7 +102,7 @@ public class VehiclesController {
         return vehiclesRepository.findRandomCars(limit);
     }
 
-    @GetMapping("/getVehicle/{matricule}")
+    @GetMapping("/getCar/{matricule}")
     public Vehicles getCar(@PathVariable String matricule) {
         Vehicles vehicles = vehiclesRepository.findByMatricule(matricule);
         return vehicles;
@@ -116,11 +116,10 @@ public class VehiclesController {
         List<Vehicles> vehicles = vehiclesRepository.findByUser_UserId(user.getUserId());
         return ResponseEntity.ok(vehicles);
     }
-
-    @DeleteMapping("deleteVehicle/vehicleId")
-    public ResponseEntity<String> deleteCar(@PathVariable String matricule) {
+    @DeleteMapping("deleteVehicle/{matricule}")
+    public ResponseEntity<String> deleteCar(@PathVariable("matricule") String matricule) {
+        // Ensure the repository deletes by the correct ID (matricule)
         vehiclesRepository.deleteById(matricule);
         return ResponseEntity.ok("vehicle deleted successfully");
     }
-
 }

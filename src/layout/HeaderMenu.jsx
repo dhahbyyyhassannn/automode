@@ -8,6 +8,7 @@ import { Bookmark } from 'react-bootstrap-icons'
 import { InfoCircleFill } from 'react-bootstrap-icons'
 import authAPI from '../api/AuthAPI'
 import { logout } from '../api/LogoutAPI'
+
 export default function HeaderMenu() {
     const user = authAPI();
     const handleLogout = (e) => {

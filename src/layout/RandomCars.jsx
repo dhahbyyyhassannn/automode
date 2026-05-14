@@ -2,7 +2,7 @@ import layoutStyle from './layoutStyle.module.css';
 import CarCard from '../components/cards/CarCard';
 import { useNavigate } from 'react-router-dom';
 
-export default function RandomCars({ cars = [] }) {
+export default function RandomCars({ cars }) {
     const navigate = useNavigate();
     const formatImage = (img) => {
         if (!img) return null;

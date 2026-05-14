@@ -3,16 +3,14 @@ package com.example.automodebackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 
 @Entity
 @Table(name = "Vehicles")
-@Getter
-@Setter
+@Data
 public class Vehicles {
-    @Id
-    private String matricule;
+    @Id private String matricule;
     private String brand;
     private String model;
     private String type;

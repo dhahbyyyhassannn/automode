@@ -1,5 +1,6 @@
 package com.example.automodebackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +18,6 @@ public abstract class Expenses {
     private int mileageAtService;
     @ManyToOne
     @JoinColumn(name = "matricule")
+    @JsonIgnore
     private Vehicles vehicle;
 }

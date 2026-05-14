@@ -25,7 +25,7 @@ export default function ChangePassword({ user }) {
         setMessage('');
         setError('');
 
-        // Validation
+        // Validation,
         if (!passwords.oldPassword) {
             setError('Veuillez entrer votre ancien mot de passe');
             return;

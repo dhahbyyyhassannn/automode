@@ -36,13 +36,14 @@ export default function ManageVehicles({ user }) {
         }, 500);
     };
 
-    const handleDelete = async (vehicleId) => {
-        if (!window.confirm('Êtes-vous sûr de vouloir supprimer cette voiture?')) {
+    const handleDelete = async (vehicleMatricule) => {
+        // Use the matricule for the confirmation message to be sure
+        if (!window.confirm(`Êtes-vous sûr de vouloir supprimer la voiture avec matricule: ${vehicleMatricule}?`)) {
             return;
         }
 
         try {
-            await deleteVehicle(vehicleId);
+            await deleteVehicle(vehicleMatricule);
             setMessage('Voiture supprimée avec succès!');
             fetchVehicles();
         } catch (err) {
@@ -79,14 +80,14 @@ export default function ManageVehicles({ user }) {
             ) : (
                 <div className={styles.vehiclesList}>
                     {Array.isArray(vehicles) && vehicles.map((vehicle) => (
-                        <div key={vehicle.id} className={styles.vehicleCard}>
+                        <div key={vehicle.matricule} className={styles.vehicleCard}>
                             <h3>{vehicle.brand} {vehicle.model}</h3>
                             <p><strong>Matricule:</strong> {vehicle.matricule}</p>
                             <p><strong>Année:</strong> {vehicle.year}</p>
                             <p><strong>Couleur:</strong> {vehicle.color}</p>
                             <div className={styles.vehicleActions}>
                                 <button 
-                                    onClick={() => handleDelete(vehicle.id)}
+                                    onClick={() => handleDelete(vehicle.matricule)}
                                     className={styles.deleteButton}
                                 >
                                     Supprimer

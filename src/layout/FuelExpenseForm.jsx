@@ -5,7 +5,9 @@ import { AddFuelExpenses } from "../api/fuelExpensesAPI";
 import Swal from 'sweetalert2';
 
 
-export default function FuelExpenseForm({ onBack, onNext }) {
+export default function FuelExpenseForm({ matricule, onBack, onNext }) {
+    console.log("=== DÉBOGAGE FORMULAIRE ===");
+    console.log("Valeur de matricule reçue :", matricule);
     const navigation = useNavigate();
     const [fuelExpenses, setFuelExpenses] = useState({
         cost: '',
@@ -23,7 +25,7 @@ export default function FuelExpenseForm({ onBack, onNext }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await AddFuelExpenses(fuelExpenses);
+             await AddFuelExpenses(matricule, fuelExpenses);
             navigation('/oilChange');
             Swal.fire({
                 icon: "success",

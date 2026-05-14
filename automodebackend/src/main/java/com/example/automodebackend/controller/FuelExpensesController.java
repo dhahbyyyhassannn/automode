@@ -21,15 +21,30 @@ public class FuelExpensesController {
     private JwtUtil jwtUtil;
     @PostMapping("/vehicles/{matricule}/addFuelExpense")
     public ResponseEntity<?> ajouterFuelExpenses(@PathVariable("matricule") String matricule,
-                                                      @RequestBody FuelExpenses fuelExpenses,
-                                                      @RequestHeader("Authorization") String token) {
+                                                 @RequestBody FuelExpenses fuelExpenses,
+                                                 @RequestHeader("Authorization") String token) {
 
         String bearerToken = token.substring(7);
         int userId = jwtUtil.extractUserId(bearerToken);
+
+        // Récupération du véhicule
         Vehicles vehicles = vehiclesRepository.findByMatricule(matricule);
-        if(vehicles.getUser().getUserId() != userId ) {
-            return ResponseEntity.status(403).body("not allowed");
+
+        // --- AJOUT DE LA SÉCURITÉ ICI ---
+        if (vehicles == null) {
+            System.out.println("ERREUR : Aucun véhicule trouvé avec le matricule : " + matricule);
+            return ResponseEntity.status(404).body("Véhicule non trouvé avec le matricule : " + matricule);
         }
+        // ---------------------------------
+
+        if(vehicles.getUser() == null) {
+            return ResponseEntity.status(500).body("Erreur interne : Ce véhicule n'a pas de propriétaire assigné.");
+        }
+
+        if(vehicles.getUser().getUserId() != userId ) {
+            return ResponseEntity.status(403).body("not allowed: you are not the owner of this vehicle");
+        }
+
         fuelExpenses.setVehicle(vehicles);
         fuelExpensesRepository.save(fuelExpenses);
         return ResponseEntity.ok("fuelExpenses saved");

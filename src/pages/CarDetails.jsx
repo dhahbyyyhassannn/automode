@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import layoutStyle from './page.module.css';
 import { getCar } from '../api/carAPI';
+import FuelExpenseForm from '../layout/FuelExpenseForm'; 
 
 export default function CarDetails() {
   const { matricule } = useParams();
@@ -62,6 +63,10 @@ export default function CarDetails() {
           <div className={layoutStyle.carDetails_infoItem}><span className={layoutStyle.carDetails_infoLabel}>Propriétaire</span><span className={layoutStyle.carDetails_infoValue}>{car.user?.name || '—'}</span></div>
         </div>
       </div>
+      <div style={{ marginTop: '40px' }}>
+        <FuelExpenseForm matricule={matricule} />
+      </div>
+      
     </div>
   );
 }

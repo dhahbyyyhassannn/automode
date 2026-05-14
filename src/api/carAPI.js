@@ -23,14 +23,15 @@ export const searchCar = async (keyword) => {
 
 export const getCar = async (matricule) => {
     try {
-        const response = await axios.get('http://localhost:8090/getVehicle/' + matricule);
+        const response = await axios.get(`http://localhost:8090/getCar/${matricule}`, {
+            headers: getAuthHeaders() 
+        });
         return response.data;
     } catch (error) {
         console.error("Get car failed:", error.response?.data || error.message);
         throw error;
     }
 };
-
 export const getRandomCars = async (limit = 3) => {
     return await axios.get('http://localhost:8090/random', {
         params: { limit }
@@ -49,9 +50,9 @@ export const getUserVehicles = async () => {
     }
 };
 
-export const deleteVehicle = async (vehicleId) => {
+export const deleteVehicle = async (matricule) => {
     try {
-        const response = await axios.delete('http://localhost:8090/deleteVehicle/' + vehicleId, {
+        const response = await axios.delete(`http://localhost:8090/deleteVehicle/${matricule}`, {
             headers: getAuthHeaders()
         });
         return response.data;
