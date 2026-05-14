@@ -29,7 +29,6 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    
 
     public boolean isTokenValid(String token) {
         try {
@@ -38,5 +37,14 @@ public class JwtUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+
+    public int extractUserId(String token) {
+        return ((Number) Jwts.parser()
+                .setSigningKey(SECRET_KEY.getBytes())
+                .parseClaimsJws(token)
+                .getBody()
+                .get("userId")).intValue();
     }
 }

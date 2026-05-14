@@ -15,5 +15,7 @@ public interface VehiclesRepository extends JpaRepository<Vehicles, String> {
             "LOWER(v.model) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Vehicles> searchVehicles(@Param("keyword") String keyword);
     @Query(value = "SELECT * FROM vehicles ORDER BY RANDOM() LIMIT :limit", nativeQuery = true)
-    List<Vehicles> findRandomCars(@Param("limit") int limit);   
+    List<Vehicles> findRandomCars(@Param("limit") int limit);
+    Vehicles findByMatricule(String matricule);
+    List<Vehicles> findByUserId(int id);
 }

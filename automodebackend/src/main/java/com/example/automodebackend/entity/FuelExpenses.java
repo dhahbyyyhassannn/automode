@@ -2,12 +2,14 @@ package com.example.automodebackend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "FuelExpenses")
-@AllArgsConstructor
+@Table(name = "fuel_expenses")
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class FuelExpenses extends Expenses {
     private double liters;
     private double pricePerLitre;

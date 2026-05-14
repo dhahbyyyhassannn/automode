@@ -5,12 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name="Expenses")
+@MappedSuperclass
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Expenses {
+public abstract class Expenses {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idExpense;

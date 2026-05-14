@@ -6,7 +6,10 @@ import com.example.automodebackend.repository.VehiclesRepository;
 import com.example.automodebackend.repository.UsersRepository;
 import com.example.automodebackend.security.JwtUtil;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -17,6 +20,7 @@ import java.util.Optional;
 @CrossOrigin(origins="http://localhost:3000")
 public class VehiclesController {
 
+    @Autowired
     private VehiclesRepository vehiclesRepository;
     private UsersRepository usersRepository;
     private JwtUtil jwtUtil;
@@ -97,4 +101,25 @@ public class VehiclesController {
     public List<Vehicles> getRandomCars(@RequestParam(defaultValue = "3") int limit) {
         return vehiclesRepository.findRandomCars(limit);
     }
+
+    @GetMapping("/getVehicle/{matricule}")
+    public Vehicles getCar(@PathVariable String matricule) {
+        Vehicles vehicles = vehiclesRepository.findByMatricule(matricule);
+        return vehicles;
+    }
+
+    @GetMapping("/getUserVehciles")
+    public ResponseEntity<List<Vehicles>> getUserCars(Authentication auth) {
+        String username = auth.getName();
+        Users user = usersRepository.findByName(username).orElseThrow();
+        List<Vehicles> vehicles = vehiclesRepository.findByUserId(user.getUserId());
+        return ResponseEntity.ok(vehicles);
+    }
+
+    @DeleteMapping("deleteVehicle/vehicleId")
+    public ResponseEntity<String> deleteCar(@PathVariable String matricule) {
+        vehiclesRepository.deleteById(matricule);
+        return ResponseEntity.ok("vehicle deleted successfully");
+    }
+
 }

@@ -1,8 +1,8 @@
 package com.example.automodebackend.controller;
 
-import com.example.automodebackend.entity.FuelExpenses;
+import com.example.automodebackend.entity.RepairExpenses;
 import com.example.automodebackend.entity.Vehicles;
-import com.example.automodebackend.repository.FuelExpensesRepository;
+import com.example.automodebackend.repository.RepairExpensesRepository;
 import com.example.automodebackend.repository.VehiclesRepository;
 import com.example.automodebackend.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
-public class FuelExpensesController {
-
+public class RepairExpensesController {
     @Autowired
-    private FuelExpensesRepository fuelExpensesRepository;
+    private RepairExpensesRepository repairExpensesRepository;
     private VehiclesRepository vehiclesRepository;
     private JwtUtil jwtUtil;
 
     @Autowired
-    @PostMapping("/vehicles/{matricule}/addFuelExpense")
-    public ResponseEntity<?> ajouterFuelExpenses(@PathVariable String matricule,
-                                                      @RequestBody FuelExpenses fuelExpenses,
+    @PostMapping("/vehicles/{matricule}/repairExpense")
+    public ResponseEntity<?> ajouterRepairExpenses(@PathVariable String matricule,
+                                                      @RequestBody RepairExpenses repairExpenses,
                                                       @RequestHeader("Authorization") String token) {
 
         String bearerToken = token.substring(7);
@@ -30,8 +29,8 @@ public class FuelExpensesController {
         if(vehicles.getUser().getUserId() != userId ) {
             return ResponseEntity.status(403).body("not allowed");
         }
-        fuelExpenses.setVehicle(vehicles);
-        fuelExpensesRepository.save(fuelExpenses);
-        return ResponseEntity.ok("fuelExpenses saved");
+        repairExpenses.setVehicle(vehicles);
+        repairExpensesRepository.save(repairExpenses);
+        return ResponseEntity.ok("repair expenses saved");
     }
 }
