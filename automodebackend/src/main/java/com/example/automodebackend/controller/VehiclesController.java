@@ -112,7 +112,7 @@ public class VehiclesController {
     public ResponseEntity<List<Vehicles>> getUserCars(Authentication auth) {
         String username = auth.getName();
         Users user = usersRepository.findByName(username).orElseThrow();
-        List<Vehicles> vehicles = vehiclesRepository.findByUserId(user.getUserId());
+        List<Vehicles> vehicles = vehiclesRepository.findByUser_UserId(user.getUserId());
         return ResponseEntity.ok(vehicles);
     }
 

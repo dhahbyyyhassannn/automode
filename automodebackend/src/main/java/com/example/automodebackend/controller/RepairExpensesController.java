@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.*;
 public class RepairExpensesController {
     @Autowired
     private RepairExpensesRepository repairExpensesRepository;
+    @Autowired
     private VehiclesRepository vehiclesRepository;
+    @Autowired
     private JwtUtil jwtUtil;
 
-    @Autowired
     @PostMapping("/vehicles/{matricule}/repairExpense")
-    public ResponseEntity<?> ajouterRepairExpenses(@PathVariable String matricule,
+    public ResponseEntity<?> ajouterRepairExpenses(@PathVariable("matricule") String matricule,
                                                       @RequestBody RepairExpenses repairExpenses,
                                                       @RequestHeader("Authorization") String token) {
 

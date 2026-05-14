@@ -15,12 +15,12 @@ public class FuelExpensesController {
 
     @Autowired
     private FuelExpensesRepository fuelExpensesRepository;
-    private VehiclesRepository vehiclesRepository;
-    private JwtUtil jwtUtil;
-
     @Autowired
+    private VehiclesRepository vehiclesRepository;
+    @Autowired
+    private JwtUtil jwtUtil;
     @PostMapping("/vehicles/{matricule}/addFuelExpense")
-    public ResponseEntity<?> ajouterFuelExpenses(@PathVariable String matricule,
+    public ResponseEntity<?> ajouterFuelExpenses(@PathVariable("matricule") String matricule,
                                                       @RequestBody FuelExpenses fuelExpenses,
                                                       @RequestHeader("Authorization") String token) {
 

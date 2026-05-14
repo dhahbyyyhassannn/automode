@@ -17,5 +17,5 @@ public interface VehiclesRepository extends JpaRepository<Vehicles, String> {
     @Query(value = "SELECT * FROM vehicles ORDER BY RANDOM() LIMIT :limit", nativeQuery = true)
     List<Vehicles> findRandomCars(@Param("limit") int limit);
     Vehicles findByMatricule(String matricule);
-    List<Vehicles> findByUserId(int id);
+    List<Vehicles> findByUser_UserId(int id);
 }

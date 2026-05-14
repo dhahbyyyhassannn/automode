@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.*;
 public class OilChangeExpensesController {
     @Autowired
     private OilChangeExpensesRepository oilChangeExpensesRepository;
+    @Autowired
     private VehiclesRepository vehiclesRepository;
+    @Autowired
     private JwtUtil jwtUtil;
 
-    @Autowired
     @PostMapping("/vehicles/{matricule}/addOilChangeExpense")
-    public ResponseEntity<?> ajouterOilChangeExpenses(@PathVariable String matricule,
+    public ResponseEntity<?> ajouterOilChangeExpenses(@PathVariable("matricule") String matricule,
                                                  @RequestBody OilChangeExpenses oilChangeExpenses,
                                                  @RequestHeader("Authorization") String token) {
 
