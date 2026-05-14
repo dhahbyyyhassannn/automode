@@ -108,10 +108,11 @@ public class VehiclesController {
         return vehicles;
     }
 
-    @GetMapping("/getUserVehciles")
-    public ResponseEntity<List<Vehicles>> getUserCars(Authentication auth) {
-        String username = auth.getName();
-        Users user = usersRepository.findByName(username).orElseThrow();
+    @GetMapping("/getUserVehicles")
+    public ResponseEntity<List<Vehicles>> getUserCars(@RequestHeader("Authorization") String token) {
+        String bearerToken = token.substring(7);
+        int UserId = extractUserIdFromToken(bearerToken);
+        Users user = usersRepository.findById(UserId).orElseThrow(() -> new RuntimeException("user not found: "));
         List<Vehicles> vehicles = vehiclesRepository.findByUser_UserId(user.getUserId());
         return ResponseEntity.ok(vehicles);
     }

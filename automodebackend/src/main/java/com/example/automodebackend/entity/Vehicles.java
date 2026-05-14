@@ -1,6 +1,7 @@
 package com.example.automodebackend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +22,6 @@ public class Vehicles {
     private byte[] image;
     @ManyToOne
     @JoinColumn(name = "userId")
+    @JsonIgnore
     private Users user;
 }

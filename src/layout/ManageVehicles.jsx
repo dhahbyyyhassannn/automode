@@ -17,7 +17,7 @@ export default function ManageVehicles({ user }) {
     const fetchVehicles = async () => {
         try {
             const data = await getUserVehicles();
-            setVehicles(data || []);
+            setVehicles(Array.isArray(data) ? data : []);
             setError('');
         } catch (err) {
             setError('Erreur lors du chargement des voitures: ' + (err.response?.data?.message || err.message));
@@ -78,7 +78,7 @@ export default function ManageVehicles({ user }) {
                 <p>Vous n'avez pas encore de voiture.</p>
             ) : (
                 <div className={styles.vehiclesList}>
-                    {vehicles.map((vehicle) => (
+                    {Array.isArray(vehicles) && vehicles.map((vehicle) => (
                         <div key={vehicle.id} className={styles.vehicleCard}>
                             <h3>{vehicle.brand} {vehicle.model}</h3>
                             <p><strong>Matricule:</strong> {vehicle.matricule}</p>
