@@ -1,5 +1,5 @@
 import layoutStyle from './layoutStyle.module.css';
-import CarCard from '../components/CarCard';
+import CarCard from '../components/cards/CarCard';
 import { useNavigate } from 'react-router-dom';
 
 export default function SearchResults({ cars }) {
