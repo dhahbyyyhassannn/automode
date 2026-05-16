@@ -19,7 +19,7 @@ export const signInUser = async (info) => {
 export const updateUser = async (userData) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.put('http://localhost:8090/updateUser', userData, {
+        const response = await axios.put(`http://localhost:8090/updateUser`, userData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'

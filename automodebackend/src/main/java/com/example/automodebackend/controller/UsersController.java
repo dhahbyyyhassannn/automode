@@ -5,6 +5,7 @@ import com.example.automodebackend.entity.Users;
 import com.example.automodebackend.repository.UsersRepository;
 import com.example.automodebackend.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,4 +49,18 @@ public class UsersController {
         }
         throw new RuntimeException("Utilisateur non trouvé");
     }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<Users> updateUser(@RequestBody Users userData,
+                                            @RequestHeader("Authorization") String token) {
+
+        String bearerToken = token.substring(7);
+        int userId = jwtUtil.extractUserId(bearerToken);
+        Users user = repository.findById(userId).orElseThrow(() -> new RuntimeException());
+        user.setName(userData.getName());
+        user.setEmail(userData.getEmail());
+        repository.save(user);
+        return ResponseEntity.ok(user);
+    }
+
 }
