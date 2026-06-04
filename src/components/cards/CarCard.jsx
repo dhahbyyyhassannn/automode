@@ -17,8 +17,9 @@ export default function CarCard({ brand, model, type, image, onClick }) {
         )}
       </div>
       <div className={styles.content}>
+        <span className={styles.badge}>{type || 'Vehicle'}</span>
         <h3 className={styles.title}>{title}</h3>
-        <p className={styles.meta}>{type}</p>
+        <p className={styles.meta}>View details</p>
       </div>
     </div>
   );

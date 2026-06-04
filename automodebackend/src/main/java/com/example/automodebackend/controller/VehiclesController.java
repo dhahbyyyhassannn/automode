@@ -2,6 +2,9 @@ package com.example.automodebackend.controller;
 
 import com.example.automodebackend.entity.Vehicles;
 import com.example.automodebackend.entity.Users;
+import com.example.automodebackend.repository.FuelExpensesRepository;
+import com.example.automodebackend.repository.OilChangeExpensesRepository;
+import com.example.automodebackend.repository.RepairExpensesRepository;
 import com.example.automodebackend.repository.VehiclesRepository;
 import com.example.automodebackend.repository.UsersRepository;
 import com.example.automodebackend.security.JwtUtil;
@@ -13,7 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -24,14 +29,23 @@ public class VehiclesController {
     private VehiclesRepository vehiclesRepository;
     private UsersRepository usersRepository;
     private JwtUtil jwtUtil;
+    private FuelExpensesRepository fuelExpensesRepository;
+    private OilChangeExpensesRepository oilChangeExpensesRepository;
+    private RepairExpensesRepository repairExpensesRepository;
     
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    public VehiclesController(VehiclesRepository vehiclesRepository, UsersRepository usersRepository, JwtUtil jwtUtil) {
+    public VehiclesController(VehiclesRepository vehiclesRepository, UsersRepository usersRepository, JwtUtil jwtUtil,
+                              FuelExpensesRepository fuelExpensesRepository,
+                              OilChangeExpensesRepository oilChangeExpensesRepository,
+                              RepairExpensesRepository repairExpensesRepository) {
         this.vehiclesRepository = vehiclesRepository;
         this.usersRepository = usersRepository;
         this.jwtUtil = jwtUtil;
+        this.fuelExpensesRepository = fuelExpensesRepository;
+        this.oilChangeExpensesRepository = oilChangeExpensesRepository;
+        this.repairExpensesRepository = repairExpensesRepository;
     }
 
     @PostMapping("/addVehicle")
@@ -116,6 +130,50 @@ public class VehiclesController {
         List<Vehicles> vehicles = vehiclesRepository.findByUser_UserId(user.getUserId());
         return ResponseEntity.ok(vehicles);
     }
+
+    @GetMapping("/vehicles/{matricule}/expenseSummary")
+    public ResponseEntity<?> getExpenseSummary(@PathVariable("matricule") String matricule,
+                                               @RequestHeader("Authorization") String token) {
+        String bearerToken = token.substring(7);
+        int userId = extractUserIdFromToken(bearerToken);
+        Vehicles vehicle = vehiclesRepository.findByMatricule(matricule);
+
+        if (vehicle == null) {
+            return ResponseEntity.status(404).body("vehicle not found");
+        }
+
+        if (vehicle.getUser() == null || vehicle.getUser().getUserId() != userId) {
+            return ResponseEntity.status(403).body("not allowed");
+        }
+
+        double fuelTotal = fuelExpensesRepository.findByVehicle_Matricule(matricule)
+                .stream()
+                .mapToDouble(expense -> expense.getCost())
+                .sum();
+        double oilTotal = oilChangeExpensesRepository.findByVehicle_Matricule(matricule)
+                .stream()
+                .mapToDouble(expense -> expense.getCost())
+                .sum();
+        double repairTotal = repairExpensesRepository.findByVehicle_Matricule(matricule)
+                .stream()
+                .mapToDouble(expense -> expense.getCost())
+                .sum();
+
+        double totalExpenses = fuelTotal + oilTotal + repairTotal;
+        double costPerMile = vehicle.getCurrentMileage() > 0 ? totalExpenses / vehicle.getCurrentMileage() : 0;
+
+        Map<String, Object> summary = new HashMap<>();
+        summary.put("matricule", vehicle.getMatricule());
+        summary.put("fuelTotal", fuelTotal);
+        summary.put("oilTotal", oilTotal);
+        summary.put("repairTotal", repairTotal);
+        summary.put("totalExpenses", totalExpenses);
+        summary.put("costPerMile", costPerMile);
+        summary.put("currentMileage", vehicle.getCurrentMileage());
+
+        return ResponseEntity.ok(summary);
+    }
+
     @DeleteMapping("deleteVehicle/{matricule}")
     public ResponseEntity<String> deleteCar(@PathVariable("matricule") String matricule) {
         // Ensure the repository deletes by the correct ID (matricule)

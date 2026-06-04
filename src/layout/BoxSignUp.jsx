@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 import { createUser } from '../api/userAPI';
 import Swal from 'sweetalert2';
 import layoutStyles from './layoutStyle.module.css'
@@ -67,9 +68,9 @@ export default function BoxSignUp() {
                 <button type="submit" className={ layoutStyles.btn }>Create Account</button>
                     <p className={ layoutStyles.loginSig }>
                         Already have an account? 
-                        <a className={ layoutStyles.aloginSig } href="/signIn">
+                        <Link className={ layoutStyles.aloginSig } to="/signin">
                             Login here
-                        </a>
+                        </Link>
                     </p>
                 </form>
         </div>

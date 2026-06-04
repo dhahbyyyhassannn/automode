@@ -1,6 +1,5 @@
 import HeaderMenu from "../layout/HeaderMenu";
 import BoxSignUp from "../layout/BoxSignUp";
-import SignIn from "./SignIn";
 import pageStyles from './page.module.css';
 import bmwImage from "../assets/images/bmw.jpeg";
 

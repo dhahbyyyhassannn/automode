@@ -8,10 +8,15 @@
     --primaryColor: #EAEBED;
     --secondlyColor: #021B2B;
     --thirdColor: #D7263D;
-    --titleFont: 'lato', sans-serif;
-    --linkFont: 'quicksand', sans-serif;
-    --buttonFont: 'monserrat', sans-serif;
-    --firstFont: 'ubuntu', sans-serif;
-    --secondFont: 'fira sans extra condensed', sans-serif;
-    --thirdFont: 'prompt', sans-serif;
+    --accentColor: #4D7C76;
+    --warningColor: #F3B454;
+    --inkMuted: #60717A;
+    --surfaceColor: rgba(255, 255, 255, 0.96);
+    --surfaceShadow: rgba(2, 27, 43, 0.12);
+    --titleFont: 'Lato', sans-serif;
+    --linkFont: 'Quicksand', sans-serif;
+    --buttonFont: 'Montserrat', sans-serif;
+    --firstFont: 'Ubuntu', sans-serif;
+    --secondFont: 'Fira Sans Extra Condensed', sans-serif;
+    --thirdFont: 'Prompt', sans-serif;
 }

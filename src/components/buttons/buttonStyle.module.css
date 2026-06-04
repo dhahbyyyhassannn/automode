@@ -1,39 +1,53 @@
 .signInButton {
-    background-color: var(--thirdColor);
+    background: #ffffff;
     text-align: center;
     cursor: pointer;
-    padding: 10px;
-    border-radius: 15px;
-    font-size: 15px;
-    width: 70px;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    min-width: 84px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .signInLink {
+    display: block;
+    padding: 0.7rem 0.9rem;
     text-decoration: none;
-    color: var(--secondryColor);
+    color: var(--secondlyColor);
     font-family: var(--buttonFont);
+    font-weight: 800;
 }
 .signUpButton {
-    background-color: var(--secondryColor);
-    border: 1px solid var(--thirdColor);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.38);
     text-align: center;
     cursor: pointer;
-    padding: 10px;
-    border-radius: 15px;
-    font-size: 15px;
-    width: 70px;
-    transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    min-width: 84px;
+    transition: background-color 0.2s ease, border 0.2s ease;
 }
 .signUpLink {
+    display: block;
+    padding: 0.7rem 0.9rem;
     text-decoration: none;
-    color: var(--thirdColor);
+    color: #ffffff;
     font-family: var(--buttonFont);
-    transition: color 0.5s ease-in-out
+    font-weight: 800;
+    transition: color 0.2s ease
 }
 
 .signUpButton:hover {
-    background-color: var(--thirdColor);
-    border: 1px solid var(--secondryColor);
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 .signUpButton:hover .signUpLink {
-    color: var(--secondryColor);
+    color: #ffffff;
+}
+
+@media (max-width: 760px) {
+    .signInButton,
+    .signUpButton {
+        width: 100%;
+    }
 }

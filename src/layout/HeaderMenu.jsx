@@ -3,9 +3,7 @@ import AuthButton from '../components/buttons/AuthButton'
 import styles from '../components/buttons/buttonStyle.module.css'
 import layoutStyles from './layoutStyle.module.css'
 import MenuLink from '../components/links/MenuLink'
-import { House, PlusCircle } from 'react-bootstrap-icons'
-import { Bookmark } from 'react-bootstrap-icons'
-import { InfoCircleFill } from 'react-bootstrap-icons'
+import { House, Person, PlusCircle, Speedometer2 } from 'react-bootstrap-icons'
 import authAPI from '../api/AuthAPI'
 import { logout } from '../api/LogoutAPI'
 
@@ -24,9 +22,8 @@ export default function HeaderMenu() {
                 </li>
                 <li className={layoutStyles.links}>
                     <MenuLink icon={ House } linkName={ "home" } path={ "/" } />
-                    <MenuLink icon={ Bookmark } linkName={ "saved" } />
-                    <MenuLink icon={ InfoCircleFill } linkName={ "about" } />
-                    <MenuLink icon={ PlusCircle } linkName={ "add a car" } path={ "/addCar" } />
+                    {user != null && <MenuLink icon={ Speedometer2 } linkName={ "my cars" } path={ "/myCars" } />}
+                    <MenuLink icon={ PlusCircle } linkName={ "add car" } path={ "/addCar" } />
                 </li>
                 {user==null && (
                     <li className={layoutStyles.buttons}>
@@ -36,7 +33,7 @@ export default function HeaderMenu() {
                 )}
                 {user!=null && (
                     <li className={layoutStyles.buttons}>
-                        <h5>welcome, {user.name}!</h5>
+                        <span className={layoutStyles.userChip}><Person /> {user.name}</span>
                         <AuthButton link="/dashboard" text="Profile" style={styles.signInButton} linkStyle={ styles.signInLink }/>
                         <AuthButton link="/" text="Logout" style={styles.signUpButton} linkStyle={ styles.signUpLink } onClick={handleLogout} />
                     </li> 

@@ -1,22 +1,39 @@
 .linkStyle {
-    color: var(--thirdColor);
+    border: 0;
+    color: rgba(255, 255, 255, 0.78);
+    background: transparent;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 5px;
-    transition: background-color 0.5s ease-in-out;
-    padding-left: 3px;
-    padding-right: 3px;
+    gap: 0.45rem;
+    min-height: 38px;
+    padding: 0 0.75rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .link {
-    font-size: 24px;
-    color: var(--thirdColor);
+    margin: 0;
+    font-size: 0.92rem;
+    color: inherit;
     font-family: var(--linkFont);
-    transition: color 0.5s ease-in-out;
+    font-weight: 800;
+    text-transform: capitalize;
 }
 .linkStyle:hover {
-    background-color: var(--thirdColor);
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    transform: translateY(-1px);
 }
-.linkStyle:hover .link {
-    color: var(--secondlyColor);
+
+.linkStyle:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+}
+
+@media (max-width: 760px) {
+    .linkStyle {
+        justify-content: center;
+        width: 100%;
+    }
 }

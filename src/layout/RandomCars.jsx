@@ -4,22 +4,29 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RandomCars({ cars }) {
     const navigate = useNavigate();
+    const carList = Array.isArray(cars) ? cars : cars?.data || [];
+
     const formatImage = (img) => {
         if (!img) return null;
-        if (typeof img === 'string') {
-            return img.startsWith('data:') ? img : `data:image/jpeg;base64,${img}`;
+        // If it's already a data URL, return it as is
+        if (typeof img === 'string' && img.startsWith('data:')) {
+            return img;
+        }
+        // If it's a base64 string, add the data URL prefix
+        if (typeof img === 'string' && img.length > 0) {
+            return `data:image/jpeg;base64,${img}`;
         }
         return null;
     };
 
     return (
         <div>
-            <h2 className={layoutStyle.sectionTitle}>Véhicules</h2>
+            <h2 className={layoutStyle.sectionTitle}>Vehicles</h2>
             <div className={layoutStyle.cardGrid}>
-                {cars.data == null ? (
-                    <p className={layoutStyle.noResults}>Aucun véhicule trouvé.</p>
+                {carList.length === 0 ? (
+                    <p className={layoutStyle.noResults}>No vehicles found.</p>
                 ) : (
-                    cars.data.map((car) => (
+                    carList.map((car) => (
                         <CarCard
                             key={car.matricule}
                             brand={car.brand}

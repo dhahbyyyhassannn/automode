@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -61,6 +62,36 @@ public class UsersController {
         user.setEmail(userData.getEmail());
         repository.save(user);
         return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody Map<String, String> passwordData,
+                                                 @RequestHeader("Authorization") String token) {
+        try {
+            String bearerToken = token.substring(7);
+            int userId = jwtUtil.extractUserId(bearerToken);
+            Users user = repository.findById(userId).orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+            
+            String oldPassword = passwordData.get("oldPassword");
+            String newPassword = passwordData.get("newPassword");
+            
+            if (oldPassword == null || newPassword == null) {
+                return ResponseEntity.badRequest().body("Les anciens et nouveaux mots de passe sont requis");
+            }
+            
+            // Vérifier que l'ancien mot de passe est correct
+            if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+                return ResponseEntity.status(401).body("L'ancien mot de passe est incorrect");
+            }
+            
+            // Mettre à jour le mot de passe
+            user.setPassword(passwordEncoder.encode(newPassword));
+            repository.save(user);
+            
+            return ResponseEntity.ok("Mot de passe changé avec succès");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erreur lors du changement de mot de passe: " + e.getMessage());
+        }
     }
 
 }

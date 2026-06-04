@@ -5,11 +5,11 @@ import OilChangeExpenseForm from './OilChangeExpenseForm';
 import RepairExpenseForm from './RepairExpenseForm';
 import { AddCar } from '../api/carAPI';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
 
-export default function AddCarForm({ onSuccess, isDashboard = false }) {
-    const navigation = useNavigate();
-    const [step, setStep] = useState(0);
+export default function AddCarForm({ onSuccess }) {
+    const steps = ['Vehicle', 'Fuel', 'Oil', 'Repair'];
+    const [activeStep, setActiveStep] = useState('vehicle');
+    const [savedMatricule, setSavedMatricule] = useState('');
     const [vehicle, setVehicle] = useState({
         matricule: '',
         brand: '',
@@ -43,19 +43,15 @@ export default function AddCarForm({ onSuccess, isDashboard = false }) {
             if (vehicle.image) {
                 formData.append("image", vehicle.image);
             }
-            await AddCar(formData);
+            const response = await AddCar(formData);
+            setSavedMatricule(response.data?.matricule || vehicle.matricule);
+            setActiveStep('fuel');
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
-                text: 'Vehicle added successfully!',
+                text: 'Vehicle added. Add the first fuel expense next.',
             });
-            
-            // Si on est dans le dashboard, appeler le callback au lieu de rediriger
-            if (isDashboard && onSuccess) {
-                onSuccess();
-            } else {
-                navigation("/fuelForm");
-            }
+        
         } catch (error) {
             console.error("Error adding car:", error);
             Swal.fire({
@@ -67,13 +63,7 @@ export default function AddCarForm({ onSuccess, isDashboard = false }) {
         
     };
 
-    const handleFinalSubmit = async () => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Done',
-            text: 'All expenses submitted successfully!',
-        });
-        setStep(0);
+    const handleFinalSubmit = () => {
         setVehicle({
             matricule: '',
             brand: '',
@@ -83,62 +73,100 @@ export default function AddCarForm({ onSuccess, isDashboard = false }) {
             currentMileage: '',
             image: null
         });
-        
-        // Si on est dans le dashboard, appeler le callback au lieu de rediriger
-        if (isDashboard && onSuccess) {
+        setSavedMatricule('');
+        setActiveStep('vehicle');
+
+        if (onSuccess) {
             onSuccess();
         }
     };
 
+    const activeStepIndex = steps.findIndex((step) => step.toLowerCase() === activeStep);
+
     return (
-        <div className={layoutStyles.signInContainer}>
+        <div className={layoutStyles.setupShell}>
+            <div className={layoutStyles.setupHeader}>
+                <p className={layoutStyles.eyebrow}>Vehicle onboarding</p>
+                <h2 className={layoutStyles.formTitle}>Add Vehicle</h2>
+                <div className={layoutStyles.stepper}>
+                    {steps.map((step, index) => (
+                        <span
+                            key={step}
+                            className={`${layoutStyles.stepPill} ${index <= activeStepIndex ? layoutStyles.stepPillActive : ''}`}
+                        >
+                            {index + 1}. {step}
+                        </span>
+                    ))}
+                </div>
+            </div>
+
+            {activeStep === 'vehicle' && (
+                <div className={layoutStyles.signInContainer}>
             <h2 className={layoutStyles.formTitle}>Add Vehicle</h2>
-            <div className={layoutStyles.stepIndicator}>Step {step + 1} of {isDashboard ? 1 : 4}</div>
+            <form onSubmit={handleVehicleSubmit}>
+                <div className={layoutStyles.formGroup}>
+                    <label className={layoutStyles.Label}>Matricule:</label>
+                    <input className={layoutStyles.input} type="text" placeholder="Vehicle registration number" name="matricule" onChange={handleChange} required />
+                </div>
 
-            {step === 0 && (
-                <form onSubmit={handleVehicleSubmit}>
-                    <div className={layoutStyles.formGroup}>
-                        <label className={layoutStyles.Label}>Matricule:</label>
-                        <input className={layoutStyles.input} type="text" placeholder="Vehicle registration number" name="matricule" onChange={handleChange} required />
-                    </div>
+                <div className={layoutStyles.formGroup}>
+                    <label className={layoutStyles.Label}>Brand:</label>
+                    <input className={layoutStyles.input} type="text" placeholder="BMW, Mercedes, Toyota" name="brand" onChange={handleChange} required />
+                </div>
 
-                    <div className={layoutStyles.formGroup}>
-                        <label className={layoutStyles.Label}>Brand:</label>
-                        <input className={layoutStyles.input} type="text" placeholder="BMW, Mercedes, Toyota" name="brand" onChange={handleChange} required />
-                    </div>
+                <div className={layoutStyles.formGroup}>
+                    <label className={layoutStyles.Label}>Model:</label>
+                    <input className={layoutStyles.input} type="text" placeholder="X5, G-Class, Camry" name="model" onChange={handleChange} required />
+                </div>
 
-                    <div className={layoutStyles.formGroup}>
-                        <label className={layoutStyles.Label}>Model:</label>
-                        <input className={layoutStyles.input} type="text" placeholder="X5, G-Class, Camry" name="model" onChange={handleChange} required />
-                    </div>
+                <div className={layoutStyles.formGroup}>
+                    <label className={layoutStyles.Label}>Type:</label>
+                    <input className={layoutStyles.input} type="text" placeholder="SUV, Sedan, Truck" name="type" onChange={handleChange} required />
+                </div>
 
-                    <div className={layoutStyles.formGroup}>
-                        <label className={layoutStyles.Label}>Type:</label>
-                        <input className={layoutStyles.input} type="text" placeholder="SUV, Sedan, Truck" name="type" onChange={handleChange} required />
-                    </div>
+                <div className={layoutStyles.formGroup}>
+                    <label className={layoutStyles.Label}>Year:</label>
+                    <input className={layoutStyles.input} type="number" name="year" onChange={handleChange} required />
+                </div>
 
-                    <div className={layoutStyles.formGroup}>
-                        <label className={layoutStyles.Label}>Year:</label>
-                        <input className={layoutStyles.input} type="number" name="year" onChange={handleChange} required />
-                    </div>
+                <div className={layoutStyles.formGroup}>
+                    <label className={layoutStyles.Label}>Current Mileage (km):</label>
+                    <input className={layoutStyles.input} type="number" placeholder="50000" name="currentMileage" onChange={handleChange} required />
+                </div>
 
-                    <div className={layoutStyles.formGroup}>
-                        <label className={layoutStyles.Label}>Current Mileage (km):</label>
-                        <input className={layoutStyles.input} type="number" placeholder="50000" name="currentMileage" onChange={handleChange} required />
-                    </div>
+                <div className={layoutStyles.formGroup}>
+                    <label className={layoutStyles.Label}>Vehicle Images:</label>
+                    <input className={layoutStyles.input} type="file" name="image" accept="image/*" onChange={handleChange} />
+                </div>
 
-                    <div className={layoutStyles.formGroup}>
-                        <label className={layoutStyles.Label}>Vehicle Images:</label>
-                        <input className={layoutStyles.input} type="file" name="images" accept="image/*" onChange={handleChange} />
-                    </div>
-
-                    <button type="submit" className={layoutStyles.btn }>Next: Fuel expense</button>
-                </form>
+                <button type="submit" className={layoutStyles.btn }>Validate</button>
+            </form>
+                </div>
             )}
 
-            {step === 1 && <FuelExpenseForm onBack={() => setStep(0)} onNext={() => setStep(2)} />}
-            {step === 2 && <OilChangeExpenseForm onBack={() => setStep(1)} onNext={() => setStep(3)} />}
-            {step === 3 && <RepairExpenseForm onBack={() => setStep(2)} onSubmit={handleFinalSubmit} />}
+            {activeStep === 'fuel' && (
+                <FuelExpenseForm
+                    matricule={savedMatricule}
+                    onBack={() => setActiveStep('vehicle')}
+                    onNext={() => setActiveStep('oil')}
+                />
+            )}
+
+            {activeStep === 'oil' && (
+                <OilChangeExpenseForm
+                    matricule={savedMatricule}
+                    onBack={() => setActiveStep('fuel')}
+                    onNext={() => setActiveStep('repair')}
+                />
+            )}
+
+            {activeStep === 'repair' && (
+                <RepairExpenseForm
+                    matricule={savedMatricule}
+                    onBack={() => setActiveStep('oil')}
+                    onSubmit={handleFinalSubmit}
+                />
+            )}
         </div>
     );
 }

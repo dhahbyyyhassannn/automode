@@ -68,54 +68,57 @@
 .formGroup {
     margin-bottom: 1rem;
     text-align: left;
+    width: 100%;
 }
 
 .Label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.55rem;
     font-family: var(--linkFont);
     color: var(--thirdColor);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.95rem;
 }
 
 .input {
-    width: 90%;
-    padding: 10px 12px;
-    border: 1.5px solid #d8dde3;
-    border-radius: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid rgba(11, 42, 65, 0.16);
+    border-radius: 16px;
     font-family: var(--linkFont);
     font-size: 0.95rem;
-    color: var(--thirdColor);
-    background: linear-gradient(180deg, #fcfdff 0%, #f7f9fc 100%);
+    color: var(--secondlyColor);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.04);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .input:focus {
     outline: none;
     border-color: var(--thirdColor);
+    box-shadow: 0 0 0 4px rgba(215, 38, 61, 0.08);
     background-color: #fff;
 }
 
 .btn {
     width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #0b2a41 0%, #071d30 100%);
+    padding: 16px;
+    background: linear-gradient(135deg, #0b2a41 0%, #0f4f72 100%);
     color: #ffffff;
     border: none;
-    border-radius: 14px;
+    border-radius: 16px;
     font-family: var(--buttonFont);
     font-weight: 700;
     font-size: 1rem;
-    margin-top: 1.1rem;
+    margin-top: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 16px 30px rgba(7, 29, 48, 0.18);
+    box-shadow: 0 18px 32px rgba(7, 29, 48, 0.2);
 }
 
 .btn:hover {
-    color: var(--thirdColor);
-    transform: scale(1.05);
+    color: #ffffff;
+    transform: translateY(-1px);
 }
 
 .stepIndicator {
@@ -127,12 +130,13 @@
 }
 
 .formCard {
-    margin-bottom: 1.25rem;
-    padding: 1.1rem 1.1rem 0.2rem;
-    border: 1px solid rgba(11, 42, 65, 0.12);
-    border-radius: 18px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 248, 251, 0.96));
-    box-shadow: 0 12px 28px rgba(2, 27, 43, 0.06);
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(11, 42, 65, 0.08);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(2, 27, 43, 0.11);
 }
 
 .sectionTitle {
@@ -218,18 +222,263 @@
     padding: 15px;
     background: #ffffff;
     color: var(--thirdColor);
-    border: 1px solid rgba(11, 42, 65, 0.18);
-    border-radius: 14px;
-    font-family: var(--buttonFont);
-    font-weight: 700;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
+    border: 1px solid rgba(11, 42, 65, 0.12);
+    box-shadow: 0 6px 18px rgba(2, 27, 43, 0.08);
+    border-radius: 16px;
 }
 
 .secondaryAction:hover {
-    transform: scale(1.03);
+    background: rgba(215, 38, 61, 0.06);
+}
+
+.setupShell {
+    width: min(980px, 100%);
+    padding: 1rem;
+}
+
+.setupHeader {
+    margin-bottom: 1rem;
+    padding: 1.25rem;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(2, 27, 43, 0.08);
+    box-shadow: 0 14px 30px rgba(2, 27, 43, 0.08);
+}
+
+.eyebrow {
+    margin: 0 0 0.35rem;
+    color: #4d7c76;
+    font-family: var(--buttonFont);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.stepper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.stepPill {
+    padding: 0.55rem 0.75rem;
+    border-radius: 999px;
+    background: #eef3f7;
+    color: rgba(2, 27, 43, 0.58);
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+
+.stepPillActive {
+    background: #4d7c76;
+    color: #ffffff;
+}
+
+.garagePage {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+}
+
+.garageHero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #08263c 0%, #1f4f57 58%, #7b2f3b 100%);
+    box-shadow: 0 18px 38px rgba(2, 27, 43, 0.18);
+}
+
+.garageHero h1 {
+    margin: 0;
+    font-family: var(--titleFont);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+}
+
+.garageHero p {
+    margin: 0.5rem 0 0;
+    max-width: 620px;
+    color: rgba(255, 255, 255, 0.84);
+}
+
+.heroAction {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #08263c;
+    font-family: var(--buttonFont);
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.garageToolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(2, 27, 43, 0.1);
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 10px 24px rgba(2, 27, 43, 0.08);
+}
+
+.garageToolbar input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    color: var(--secondlyColor);
+    background: transparent;
+}
+
+.garageGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+}
+
+.garageCard {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    min-height: 260px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(2, 27, 43, 0.08);
+    background: #ffffff;
+    box-shadow: 0 14px 30px rgba(2, 27, 43, 0.09);
+}
+
+.garageImage {
+    min-height: 100%;
+    background: linear-gradient(160deg, #dce7ec, #ffffff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1f4f57;
+    font-size: 2.2rem;
+    font-weight: 900;
+}
+
+.garageImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.garageCardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem;
+}
+
+.garageCardTitle {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.garageCardTitle h2 {
+    margin: 0;
+    color: var(--secondlyColor);
+    font-size: 1.2rem;
+}
+
+.garageCardTitle p {
+    margin: 0.25rem 0 0;
+    color: #60717a;
+    font-size: 0.9rem;
+}
+
+.garageCardTitle button,
+.garageActions button {
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--buttonFont);
+    font-weight: 800;
+}
+
+.garageCardTitle button {
+    padding: 0.55rem 0.75rem;
+    color: #1f4f57;
+    background: #e8f1ef;
+}
+
+.metricGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.metricGrid div {
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: #f4f7f9;
+}
+
+.metricGrid span,
+.expenseBreakdown span {
+    display: block;
+    color: #60717a;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.metricGrid strong {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--secondlyColor);
+    font-size: 1rem;
+}
+
+.expenseBreakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.expenseBreakdown span {
+    padding: 0.45rem 0.65rem;
+    border-radius: 999px;
+    background: #fff4e4;
+    color: #6b4d1c;
+}
+
+.garageActions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.garageActions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 42px;
+    color: #ffffff;
+    background: #08263c;
+}
+
+.emptyState,
+.authRequired {
+    padding: 2rem;
+    text-align: center;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(2, 27, 43, 0.08);
 }
 
 @media (max-width: 768px) {
@@ -253,6 +502,287 @@
     .secondaryAction,
     .secondaryBtn {
         width: 100%;
+    }
+
+    .setupShell {
+        padding: 0;
+    }
+
+    .garageHero {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .heroAction {
+        width: 100%;
+    }
+
+    .garageGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .garageCard {
+        grid-template-columns: 1fr;
+    }
+
+    .garageImage {
+        min-height: 180px;
+    }
+
+    .garageCardTitle,
+    .garageActions {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .garageCardTitle button {
+        width: 100%;
+    }
+
+    .metricGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* UI refresh overrides */
+.header {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 20;
+    width: min(1180px, calc(100% - 1.5rem));
+    margin: 0.75rem auto 0;
+    border-radius: 8px;
+    background: rgba(2, 27, 43, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 40px rgba(2, 27, 43, 0.22);
+    backdrop-filter: blur(14px);
+}
+
+.list {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    margin: 0;
+    padding: 0.7rem;
+}
+
+.img {
+    width: 44px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.titleText {
+    color: #ffffff;
+    font-size: 1.12rem;
+    font-weight: 900;
+}
+
+.links {
+    justify-content: center;
+    gap: 0.35rem;
+}
+
+.buttons {
+    align-items: center;
+    gap: 0.55rem;
+    margin-right: 0;
+}
+
+.userChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 38px;
+    padding: 0 0.75rem;
+    border-radius: 8px;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.signInContainer,
+.formCard,
+.formContainer {
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(2, 27, 43, 0.08);
+    box-shadow: 0 18px 42px rgba(2, 27, 43, 0.1);
+}
+
+.signInContainer {
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.formTitle {
+    margin-bottom: 1.25rem;
+    color: var(--secondlyColor);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    text-align: left;
+}
+
+.Label,
+.formGroup label {
+    color: var(--secondlyColor);
+    font-size: 0.86rem;
+}
+
+.input,
+.formGroup input,
+.formGroup textarea {
+    border-radius: 8px;
+    border: 1px solid rgba(2, 27, 43, 0.12);
+    background: #f8fbfd;
+    color: var(--secondlyColor);
+    box-shadow: none;
+}
+
+.input:focus,
+.formGroup input:focus,
+.formGroup textarea:focus {
+    border-color: var(--accentColor);
+    box-shadow: 0 0 0 4px rgba(77, 124, 118, 0.12);
+}
+
+.btn,
+.submitButton {
+    border-radius: 8px;
+    background: linear-gradient(135deg, #08263c 0%, #1f4f57 100%);
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.btn:hover,
+.submitButton:hover:not(:disabled),
+.garageActions button:hover,
+.garageCardTitle button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(2, 27, 43, 0.16);
+}
+
+.secondaryAction,
+.secondaryBtn,
+.repeatableExpenseCard {
+    border-radius: 8px;
+}
+
+.setupHeader,
+.garageHero,
+.garageToolbar,
+.garageCard,
+.emptyState,
+.authRequired,
+.vehicleCard {
+    border-radius: 8px;
+}
+
+.homeContainer {
+    color: var(--secondlyColor);
+    margin-top: 1rem;
+}
+
+.homeContainer > h1 {
+    display: none;
+}
+
+.searchContainer {
+    margin: 0 auto 1.25rem;
+}
+
+.searchBar {
+    width: min(760px, 100%);
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(2, 27, 43, 0.08);
+    box-shadow: 0 14px 32px rgba(2, 27, 43, 0.09);
+}
+
+.searchBar button {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 8px;
+    background: var(--accentColor);
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.searchBar input {
+    border-radius: 8px;
+    box-shadow: none;
+    background: transparent;
+}
+
+.sectionTitle {
+    color: var(--secondlyColor);
+    font-size: 1.3rem;
+    padding-left: 0;
+}
+
+.cardGrid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.noResults {
+    color: var(--inkMuted);
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid rgba(2, 27, 43, 0.08);
+}
+
+.garageHero {
+    background: linear-gradient(135deg, #08263c 0%, #1f4f57 58%, #7b3b47 100%);
+}
+
+.metricGrid div {
+    background: #f7fafb;
+}
+
+.successMessage,
+.errorMessage {
+    border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+    .list {
+        grid-template-columns: 1fr;
+        justify-items: stretch;
+    }
+
+    .title,
+    .links,
+    .buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 560px) {
+    .header {
+        top: 0;
+        width: 100%;
+        margin-top: 0;
+        border-radius: 0;
+    }
+
+    .links,
+    .buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .userChip {
+        justify-content: center;
+    }
+
+    .formActions {
+        gap: 0.5rem;
     }
 }
 .loginSig{

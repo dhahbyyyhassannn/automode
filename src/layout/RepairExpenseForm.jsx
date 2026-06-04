@@ -1,12 +1,20 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import layoutStyles from './layoutStyle.module.css';
+import { AddRepairExpenses } from '../api/repairExpensesAPI';
+import Swal from 'sweetalert2';
 
 const createRepairExpense = () => ({
+    cost: '',
+    mileageAtService: '',
     description: '',
     nextChangeMiles: '',
 });
 
-export default function RepairExpenseForm({ onBack, onSubmit }) {
+export default function RepairExpenseForm({ matricule, onBack, onSubmit }) {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const effectiveMatricule = matricule || location.state?.matricule;
     const [repairExpenses, setRepairExpenses] = useState([createRepairExpense()]);
 
     const addRepairExpense = () => {
@@ -25,10 +33,24 @@ export default function RepairExpenseForm({ onBack, onSubmit }) {
         );
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        if (onSubmit) {
-            onSubmit(repairExpenses);
+        if (!effectiveMatricule) {
+            Swal.fire({ icon: 'error', title: 'Error', text: 'Missing vehicle matricule.' });
+            return;
+        }
+
+        try {
+            await Promise.all(repairExpenses.map((expense) => AddRepairExpenses(effectiveMatricule, expense)));
+            Swal.fire({ icon: 'success', title: 'Setup complete', text: 'Repair expense saved successfully!' });
+            if (onSubmit) {
+                onSubmit(repairExpenses);
+            } else {
+                navigate('/myCars');
+            }
+        } catch (error) {
+            console.error('Error adding repair expenses:', error);
+            Swal.fire({ icon: 'error', title: 'Error', text: 'Failed to add repair expenses.' });
         }
     };
 
@@ -59,12 +81,27 @@ export default function RepairExpenseForm({ onBack, onSubmit }) {
                     <div className={layoutStyles.formGrid}>
                         <div className={layoutStyles.formGroup}>
                             <label className={layoutStyles.Label}>Cost:</label>
-                            <input className={layoutStyles.input} type="number" step="0.01" name={`repairCost-${index}`} required />
+                            <input
+                                className={layoutStyles.input}
+                                type="number"
+                                step="0.01"
+                                name={`repairCost-${index}`}
+                                value={expense.cost}
+                                onChange={(event) => updateRepairExpense(index, 'cost', event.target.value)}
+                                required
+                            />
                         </div>
 
                         <div className={layoutStyles.formGroup}>
                             <label className={layoutStyles.Label}>Mileage at service:</label>
-                            <input className={layoutStyles.input} type="number" name={`repairMileageAtService-${index}`} required />
+                            <input
+                                className={layoutStyles.input}
+                                type="number"
+                                name={`repairMileageAtService-${index}`}
+                                value={expense.mileageAtService}
+                                onChange={(event) => updateRepairExpense(index, 'mileageAtService', event.target.value)}
+                                required
+                            />
                         </div>
 
                         <div className={layoutStyles.formGroup}>

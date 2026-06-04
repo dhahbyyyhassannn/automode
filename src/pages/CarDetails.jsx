@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import layoutStyle from './page.module.css';
+import pageStyles from './page.module.css';
 import { getCar } from '../api/carAPI';
-import FuelExpenseForm from '../layout/FuelExpenseForm'; 
+import FuelExpenseForm from '../layout/FuelExpenseForm';
+import HeaderMenu from '../layout/HeaderMenu';
 
 export default function CarDetails() {
   const { matricule } = useParams();
@@ -11,6 +12,7 @@ export default function CarDetails() {
 
   useEffect(() => {
     if (!matricule) return;
+
     const load = async () => {
       try {
         const res = await getCar(matricule);
@@ -20,17 +22,21 @@ export default function CarDetails() {
         setCar(null);
       }
     };
+
     load();
   }, [matricule]);
 
   if (!car) {
     return (
-      <div className={layoutStyle.pageWrapper}>
-        <div className={layoutStyle.carDetails_notFound}>
-          <h2>Véhicule introuvable</h2>
-          <button className={layoutStyle.btn} onClick={() => navigate(-1)}>Retour</button>
+      <>
+        <HeaderMenu />
+        <div className={pageStyles.pageWrapper}>
+          <div className={pageStyles.carDetails_notFound}>
+            <h2>Vehicle not found</h2>
+            <button className={pageStyles.btn} onClick={() => navigate(-1)}>Back</button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -39,34 +45,49 @@ export default function CarDetails() {
     : car.image;
 
   return (
-    <div className={layoutStyle.carDetails_container}>
-      <div className={layoutStyle.carDetails_backRow}>
-        <button className={layoutStyle.btn} onClick={() => navigate(-1)}>← Retour</button>
-      </div>
+    <>
+      <HeaderMenu />
+      <div className={pageStyles.carDetails_container}>
+        <div className={pageStyles.carDetails_backRow}>
+          <button className={pageStyles.btn} onClick={() => navigate(-1)}>Back</button>
+        </div>
 
-      <div className={layoutStyle.carDetails_hero}>
-        {image ? (
-          <img src={image} alt={`${car.brand} ${car.model}`} className={layoutStyle.carDetails_heroImage} />
-        ) : (
-          <div className={layoutStyle.carDetails_heroPlaceholder}>Aucune image</div>
-        )}
-      </div>
+        <div className={pageStyles.carDetails_hero}>
+          {image ? (
+            <img src={image} alt={`${car.brand} ${car.model}`} className={pageStyles.carDetails_heroImage} />
+          ) : (
+            <div className={pageStyles.carDetails_heroPlaceholder}>No image</div>
+          )}
+        </div>
 
-      <div className={layoutStyle.carDetails_detailsCard}>
-        <h1 className={layoutStyle.carDetails_title}>{car.brand} {car.model}</h1>
-        <p className={layoutStyle.carDetails_type}>{car.type}</p>
+        <div className={pageStyles.carDetails_detailsCard}>
+          <h1 className={pageStyles.carDetails_title}>{car.brand} {car.model}</h1>
+          <p className={pageStyles.carDetails_type}>{car.type}</p>
 
-        <div className={layoutStyle.carDetails_infoGrid}>
-          <div className={layoutStyle.carDetails_infoItem}><span className={layoutStyle.carDetails_infoLabel}>Matricule</span><span className={layoutStyle.carDetails_infoValue}>{car.matricule}</span></div>
-          <div className={layoutStyle.carDetails_infoItem}><span className={layoutStyle.carDetails_infoLabel}>Année</span><span className={layoutStyle.carDetails_infoValue}>{car.year}</span></div>
-          <div className={layoutStyle.carDetails_infoItem}><span className={layoutStyle.carDetails_infoLabel}>Kilométrage</span><span className={layoutStyle.carDetails_infoValue}>{car.currentMileage} km</span></div>
-          <div className={layoutStyle.carDetails_infoItem}><span className={layoutStyle.carDetails_infoLabel}>Propriétaire</span><span className={layoutStyle.carDetails_infoValue}>{car.user?.name || '—'}</span></div>
+          <div className={pageStyles.carDetails_infoGrid}>
+            <div className={pageStyles.carDetails_infoItem}>
+              <span className={pageStyles.carDetails_infoLabel}>Matricule</span>
+              <span className={pageStyles.carDetails_infoValue}>{car.matricule}</span>
+            </div>
+            <div className={pageStyles.carDetails_infoItem}>
+              <span className={pageStyles.carDetails_infoLabel}>Year</span>
+              <span className={pageStyles.carDetails_infoValue}>{car.year}</span>
+            </div>
+            <div className={pageStyles.carDetails_infoItem}>
+              <span className={pageStyles.carDetails_infoLabel}>Mileage</span>
+              <span className={pageStyles.carDetails_infoValue}>{car.currentMileage} km</span>
+            </div>
+            <div className={pageStyles.carDetails_infoItem}>
+              <span className={pageStyles.carDetails_infoLabel}>Owner</span>
+              <span className={pageStyles.carDetails_infoValue}>{car.user?.name || 'N/A'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={pageStyles.carDetailsExpensePanel}>
+          <FuelExpenseForm matricule={matricule} />
         </div>
       </div>
-      <div style={{ marginTop: '40px' }}>
-        <FuelExpenseForm matricule={matricule} />
-      </div>
-      
-    </div>
+    </>
   );
 }

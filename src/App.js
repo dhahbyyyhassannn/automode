@@ -8,6 +8,8 @@ import AddFuelExpensesPage from './pages/AddFuelExpensesPage';
 import OilChangePage from './pages/OilChangePage';
 import CarDetails from './pages/CarDetails';
 import DashboardPage from './pages/DashboardPage';
+import MyCarsPage from './pages/MyCarsPage';
+import RepairExpensesPage from './pages/RepairExpensesPage';
 function App() {
   return (
     <Routes>
@@ -19,6 +21,8 @@ function App() {
       <Route path="/oilChange" element={<OilChangePage />} />
       <Route path="/car/:matricule" element={<CarDetails />} />
       <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path='/myCars' element={<MyCarsPage />} />
+      <Route path='/repairform' element={<RepairExpensesPage />} />
     </Routes>
   );
 }

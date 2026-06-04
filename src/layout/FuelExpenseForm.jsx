@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import layoutStyles from './layoutStyle.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AddFuelExpenses } from "../api/fuelExpensesAPI";
 import Swal from 'sweetalert2';
 
 
 export default function FuelExpenseForm({ matricule, onBack, onNext }) {
+    const location = useLocation();
+    const effectiveMatricule = matricule || location.state?.matricule;
     console.log("=== DÉBOGAGE FORMULAIRE ===");
-    console.log("Valeur de matricule reçue :", matricule);
+    console.log("Valeur de matricule reçue :", effectiveMatricule);
     const navigation = useNavigate();
     const [fuelExpenses, setFuelExpenses] = useState({
         cost: '',
-        MileageAtService: '',
+        mileageAtService: '',
         liters: '',
         pricePerLitre: ''
     });
@@ -24,9 +26,22 @@ export default function FuelExpenseForm({ matricule, onBack, onNext }) {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!effectiveMatricule) {
+            console.error("Missing matricule for fuel expense submission.");
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Matricule manquant pour l'enregistrement."
+            });
+            return;
+        }
         try {
-             await AddFuelExpenses(matricule, fuelExpenses);
-            navigation('/oilChange');
+            await AddFuelExpenses(effectiveMatricule, fuelExpenses);
+            if (onNext) {
+                onNext();
+            } else {
+                navigation('/oilChange', { state: { matricule: effectiveMatricule } });
+            }
             Swal.fire({
                 icon: "success",
                 title: "Success",
@@ -55,7 +70,7 @@ export default function FuelExpenseForm({ matricule, onBack, onNext }) {
 
                 <div className={layoutStyles.formGroup}>
                     <label className={layoutStyles.Label}>Mileage at service:</label>
-                    <input className={layoutStyles.input} type="number" name="MileageAtService" onChange={handleChange} required />
+                    <input className={layoutStyles.input} type="number" name="mileageAtService" onChange={handleChange} required />
                 </div>
 
                 <div className={layoutStyles.formGroup}>
@@ -70,7 +85,7 @@ export default function FuelExpenseForm({ matricule, onBack, onNext }) {
             </div>
 
             <div className={layoutStyles.formActions}>
-                <button type="button" className={layoutStyles.secondaryAction} onClick={() => navigation(-1)}>Back</button>
+                <button type="button" className={layoutStyles.secondaryAction} onClick={onBack || (() => navigation(-1))}>Back</button>
                 <button type="submit" className={layoutStyles.btn}>Next: Oil change</button>
             </div>
         </form>

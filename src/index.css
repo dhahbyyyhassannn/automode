@@ -1,4 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
 body {
   margin: 0;
-  background-color: var(--primaryColor);
+  font-family: var(--linkFont), system-ui, sans-serif;
+  color: var(--secondlyColor);
+  background: linear-gradient(180deg, #f7fafb 0%, #eef3f7 42%, #f8fbfd 100%);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(215, 38, 61, 0.24);
+  color: var(--secondlyColor);
 }

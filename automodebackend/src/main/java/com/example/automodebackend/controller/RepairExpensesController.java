@@ -27,6 +27,16 @@ public class RepairExpensesController {
         String bearerToken = token.substring(7);
         int userId = jwtUtil.extractUserId(bearerToken);
         Vehicles vehicles = vehiclesRepository.findByMatricule(matricule);
+        
+        // Ajouter une vérification null pour le véhicule
+        if (vehicles == null) {
+            return ResponseEntity.status(404).body("Véhicule non trouvé avec le matricule : " + matricule);
+        }
+        
+        if (vehicles.getUser() == null) {
+            return ResponseEntity.status(500).body("Erreur interne : Ce véhicule n'a pas de propriétaire assigné.");
+        }
+        
         if(vehicles.getUser().getUserId() != userId ) {
             return ResponseEntity.status(403).body("not allowed");
         }

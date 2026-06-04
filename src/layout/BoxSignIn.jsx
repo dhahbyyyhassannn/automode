@@ -1,7 +1,7 @@
 import layoutStyles from './layoutStyle.module.css'
 import { useState } from 'react';
 import { signInUser } from '../api/userAPI';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 export default function BoxSignIn() {
@@ -53,7 +53,7 @@ export default function BoxSignIn() {
                     <input className={layoutStyles.input} type="password" placeholder="password" name="password" value={user.password} onChange={handleChange} required/>
                 </div>
                 <button type="submit" className={layoutStyles.btn}>Sign In</button>
-                <p className={layoutStyles.loginSig}>Don’t have an account? <a className={layoutStyles.aloginSig} href="/signUp"> Sign up here</a></p>
+                <p className={layoutStyles.loginSig}>Do not have an account? <Link className={layoutStyles.aloginSig} to="/signup">Sign up here</Link></p>
             </form>
         </div>
     )
