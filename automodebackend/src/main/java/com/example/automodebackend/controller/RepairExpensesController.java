@@ -19,6 +19,30 @@ public class RepairExpensesController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @GetMapping("/vehicles/{matricule}/repairExpenses")
+    public ResponseEntity<?> getRepairExpenses(@PathVariable("matricule") String matricule,
+                                               @RequestHeader("Authorization") String token) {
+
+        String bearerToken = token.substring(7);
+        int userId = jwtUtil.extractUserId(bearerToken);
+
+        Vehicles vehicles = vehiclesRepository.findByMatricule(matricule);
+
+        if (vehicles == null) {
+            return ResponseEntity.status(404).body("Véhicule non trouvé avec le matricule : " + matricule);
+        }
+
+        if (vehicles.getUser() == null) {
+            return ResponseEntity.status(500).body("Erreur interne : Ce véhicule n'a pas de propriétaire assigné.");
+        }
+
+        if (vehicles.getUser().getUserId() != userId) {
+            return ResponseEntity.status(403).body("not allowed");
+        }
+
+        return ResponseEntity.ok(repairExpensesRepository.findByVehicle_Matricule(matricule));
+    }
+
     @PostMapping("/vehicles/{matricule}/repairExpense")
     public ResponseEntity<?> ajouterRepairExpenses(@PathVariable("matricule") String matricule,
                                                       @RequestBody RepairExpenses repairExpenses,
@@ -27,17 +51,16 @@ public class RepairExpensesController {
         String bearerToken = token.substring(7);
         int userId = jwtUtil.extractUserId(bearerToken);
         Vehicles vehicles = vehiclesRepository.findByMatricule(matricule);
-        
-        // Ajouter une vérification null pour le véhicule
+
         if (vehicles == null) {
             return ResponseEntity.status(404).body("Véhicule non trouvé avec le matricule : " + matricule);
         }
-        
+
         if (vehicles.getUser() == null) {
             return ResponseEntity.status(500).body("Erreur interne : Ce véhicule n'a pas de propriétaire assigné.");
         }
-        
-        if(vehicles.getUser().getUserId() != userId ) {
+
+        if (vehicles.getUser().getUserId() != userId) {
             return ResponseEntity.status(403).body("not allowed");
         }
         repairExpenses.setVehicle(vehicles);

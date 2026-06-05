@@ -76,6 +76,28 @@ export const getVehicleExpenseSummary = async (matricule) => {
     }
 };
 
+export const getBestVehicle = async () => {
+    try {
+        const response = await axios.get('http://localhost:8090/vehicles/best', {
+            headers: getAuthHeaders()
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Get best vehicle failed:", error.response?.data || error.message);
+        throw error;
+    }
+};
+
+export const getBestVehiclePublic = async () => {
+    try {
+        const response = await axios.get('http://localhost:8090/vehicles/bestPublic');
+        return response.data;
+    } catch (error) {
+        console.error("Get best vehicle public failed:", error.response?.data || error.message);
+        throw error;
+    }
+};
+
 // Image-related endpoints
 export const getVehicleImage = async (matricule) => {
     try {

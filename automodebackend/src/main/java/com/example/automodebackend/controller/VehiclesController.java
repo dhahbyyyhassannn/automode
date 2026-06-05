@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -172,6 +173,143 @@ public class VehiclesController {
         summary.put("currentMileage", vehicle.getCurrentMileage());
 
         return ResponseEntity.ok(summary);
+    }
+
+    @GetMapping("/vehicles/best")
+    public ResponseEntity<?> getBestVehicle(@RequestHeader("Authorization") String token) {
+        String bearerToken = token.substring(7);
+        int userId = extractUserIdFromToken(bearerToken);
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("user not found"));
+
+        List<Vehicles> vehicles = vehiclesRepository.findByUser_UserId(user.getUserId());
+        Map<String, Object> best = computeBestVehicle(vehicles);
+        if (best == null) {
+            return ResponseEntity.status(404).body("no vehicles found");
+        }
+        return ResponseEntity.ok(best);
+    }
+
+    @GetMapping("/vehicles/bestPublic")
+    public ResponseEntity<?> getBestVehiclePublic() {
+        List<Vehicles> vehicles = vehiclesRepository.findAll();
+        Map<String, Object> best = computeBestVehicle(vehicles);
+        if (best == null) {
+            return ResponseEntity.status(404).body("no vehicles found");
+        }
+        return ResponseEntity.ok(best);
+    }
+
+    private Map<String, Object> computeBestVehicle(List<Vehicles> vehicles) {
+        if (vehicles == null || vehicles.isEmpty()) {
+            return null;
+        }
+
+        List<Map<String, Object>> stats = new ArrayList<>();
+        double minTotal = Double.MAX_VALUE;
+        double maxTotal = Double.MIN_VALUE;
+        double minCostPerKm = Double.MAX_VALUE;
+        double maxCostPerKm = Double.MIN_VALUE;
+        double minMileage = Double.MAX_VALUE;
+        double maxMileage = Double.MIN_VALUE;
+        double minYear = Double.MAX_VALUE;
+        double maxYear = Double.MIN_VALUE;
+        double minRepairs = Double.MAX_VALUE;
+        double maxRepairs = Double.MIN_VALUE;
+        double minFuelCons = Double.MAX_VALUE;
+        double maxFuelCons = Double.MIN_VALUE;
+
+        for (Vehicles vehicle : vehicles) {
+            String matricule = vehicle.getMatricule();
+            double fuelTotal = fuelExpensesRepository.findByVehicle_Matricule(matricule)
+                    .stream()
+                    .mapToDouble(expense -> expense.getCost())
+                    .sum();
+            double fuelLiters = fuelExpensesRepository.findByVehicle_Matricule(matricule)
+                    .stream()
+                    .mapToDouble(expense -> expense.getLiters())
+                    .sum();
+            double oilTotal = oilChangeExpensesRepository.findByVehicle_Matricule(matricule)
+                    .stream()
+                    .mapToDouble(expense -> expense.getCost())
+                    .sum();
+            double repairTotal = repairExpensesRepository.findByVehicle_Matricule(matricule)
+                    .stream()
+                    .mapToDouble(expense -> expense.getCost())
+                    .sum();
+            int repairCount = repairExpensesRepository.findByVehicle_Matricule(matricule).size();
+
+            double totalExpenses = fuelTotal + oilTotal + repairTotal;
+            double mileage = vehicle.getCurrentMileage();
+            double costPerKm = mileage > 0 ? totalExpenses / mileage : 0;
+            double fuelConsumption = mileage > 0 ? (fuelLiters / mileage) * 100.0 : 0;
+
+            Map<String, Object> s = new HashMap<>();
+            s.put("vehicle", vehicle);
+            s.put("totalExpenses", totalExpenses);
+            s.put("costPerKm", costPerKm);
+            s.put("mileage", mileage);
+            s.put("year", vehicle.getYear());
+            s.put("repairCount", repairCount);
+            s.put("fuelConsumption", fuelConsumption);
+            stats.add(s);
+
+            minTotal = Math.min(minTotal, totalExpenses);
+            maxTotal = Math.max(maxTotal, totalExpenses);
+            minCostPerKm = Math.min(minCostPerKm, costPerKm);
+            maxCostPerKm = Math.max(maxCostPerKm, costPerKm);
+            minMileage = Math.min(minMileage, mileage);
+            maxMileage = Math.max(maxMileage, mileage);
+            minYear = Math.min(minYear, vehicle.getYear());
+            maxYear = Math.max(maxYear, vehicle.getYear());
+            minRepairs = Math.min(minRepairs, repairCount);
+            maxRepairs = Math.max(maxRepairs, repairCount);
+            minFuelCons = Math.min(minFuelCons, fuelConsumption);
+            maxFuelCons = Math.max(maxFuelCons, fuelConsumption);
+        }
+
+        Map<String, Object> best = null;
+        double bestScore = -1;
+
+        for (Map<String, Object> s : stats) {
+            double totalExpenses = (double) s.get("totalExpenses");
+            double costPerKm = (double) s.get("costPerKm");
+            double mileage = (double) s.get("mileage");
+            double year = (int) s.get("year");
+            double repairCount = (int) s.get("repairCount");
+            double fuelConsumption = (double) s.get("fuelConsumption");
+
+            double scoreTotal = normalizeLowerBetter(totalExpenses, minTotal, maxTotal);
+            double scoreCostPerKm = normalizeLowerBetter(costPerKm, minCostPerKm, maxCostPerKm);
+            double scoreMileage = normalizeLowerBetter(mileage, minMileage, maxMileage);
+            double scoreYear = normalizeHigherBetter(year, minYear, maxYear);
+            double scoreRepairs = normalizeLowerBetter(repairCount, minRepairs, maxRepairs);
+            double scoreFuelCons = normalizeLowerBetter(fuelConsumption, minFuelCons, maxFuelCons);
+
+            double score = (scoreTotal + scoreCostPerKm + scoreMileage + scoreYear + scoreRepairs + scoreFuelCons) / 6.0;
+            s.put("score", score);
+
+            if (score > bestScore) {
+                bestScore = score;
+                best = s;
+            }
+        }
+
+        return best;
+    }
+
+    private double normalizeLowerBetter(double value, double min, double max) {
+        if (Double.compare(max, min) == 0) {
+            return 1.0;
+        }
+        return (max - value) / (max - min);
+    }
+
+    private double normalizeHigherBetter(double value, double min, double max) {
+        if (Double.compare(max, min) == 0) {
+            return 1.0;
+        }
+        return (value - min) / (max - min);
     }
 
     @DeleteMapping("deleteVehicle/{matricule}")

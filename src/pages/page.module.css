@@ -135,6 +135,125 @@
     padding: 40px 20px;
 }
 
+.expenseLoading {
+    padding: 20px;
+}
+
+.expenseContainer {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.expenseTitle {
+    margin: 0 0 16px;
+    font-family: var(--firstFont);
+    color: var(--secondlyColor);
+}
+
+.expenseGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.expenseCard {
+    background-color: var(--surfaceElevated);
+    border-radius: 14px;
+    border: 1px solid rgba(11, 29, 42, 0.08);
+    box-shadow: 0 16px 36px rgba(11, 29, 42, 0.12);
+    padding: 20px;
+}
+
+.expenseCardFuel .expenseCardTitle {
+    color: #3498db;
+}
+
+.expenseCardRepair .expenseCardTitle {
+    color: #e74c3c;
+}
+
+.expenseCardOil .expenseCardTitle {
+    color: #f39c12;
+}
+
+.expenseCardTitle {
+    margin-bottom: 15px;
+}
+
+.expenseEmpty {
+    color: #7f8c8d;
+}
+
+.expenseTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.expenseTableHeadFuel {
+    border-bottom: 2px solid #3498db;
+    background: rgba(52, 152, 219, 0.08);
+}
+
+.expenseTableHeadRepair {
+    border-bottom: 2px solid #e74c3c;
+    background: rgba(231, 76, 60, 0.08);
+}
+
+.expenseTableHeadOil {
+    border-bottom: 2px solid #f39c12;
+    background: rgba(243, 156, 18, 0.08);
+}
+
+.expenseRow {
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.expenseCellHead {
+    padding: 10px;
+    text-align: left;
+    font-family: var(--buttonFont);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.72rem;
+}
+
+.expenseCell {
+    padding: 10px;
+}
+
+.expenseTotal {
+    padding: 10px;
+    font-weight: 700;
+    color: var(--accentColor);
+}
+
+/* Premium refresh overrides */
+.homeIntro {
+    background: linear-gradient(135deg, rgba(11, 29, 42, 0.04), rgba(201, 161, 95, 0.14));
+    border: 1px solid rgba(11, 29, 42, 0.08);
+    box-shadow: 0 24px 60px rgba(11, 29, 42, 0.12);
+}
+
+.homeWelcomingTitle {
+    letter-spacing: -0.02em;
+}
+
+.homeWelcomingSlogan {
+    color: var(--inkMuted);
+}
+
+.carDetails_detailsCard {
+    border: 1px solid rgba(11, 29, 42, 0.08);
+    background: var(--surfaceElevated);
+    box-shadow: 0 20px 44px rgba(11, 29, 42, 0.12);
+}
+
+.carDetails_hero {
+    border: 1px solid rgba(11, 29, 42, 0.08);
+    box-shadow: 0 26px 52px rgba(11, 29, 42, 0.12);
+}
+
 @media (max-width: 960px) {
     .homeIntro,
     .carDetails_infoGrid {

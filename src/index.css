@@ -10,7 +10,22 @@ body {
   margin: 0;
   font-family: var(--linkFont), system-ui, sans-serif;
   color: var(--secondlyColor);
-  background: linear-gradient(180deg, #f7fafb 0%, #eef3f7 42%, #f8fbfd 100%);
+  background:
+    radial-gradient(circle at top left, rgba(201, 161, 95, 0.18), transparent 45%),
+    radial-gradient(circle at bottom right, rgba(11, 29, 42, 0.18), transparent 45%),
+    linear-gradient(180deg, #f7f4ef 0%, #f1f5f8 60%, #f9fbfd 100%);
+}
+
+body[data-theme='dark'] {
+  color: #e6edf3;
+  background:
+    radial-gradient(circle at top left, rgba(201, 161, 95, 0.12), transparent 45%),
+    radial-gradient(circle at bottom right, rgba(9, 18, 28, 0.55), transparent 45%),
+    linear-gradient(180deg, #0b131c 0%, #0f1923 50%, #111f2b 100%);
+}
+
+body[data-theme='dark'] a {
+  color: inherit;
 }
 
 button, input, select, textarea {

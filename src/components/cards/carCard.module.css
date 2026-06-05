@@ -1,9 +1,9 @@
 .card {
   width: 100%;
-  background: #ffffff;
-  border: 1px solid rgba(2, 27, 43, 0.08);
-  border-radius: 8px;
-  box-shadow: 0 14px 32px rgba(2, 27, 43, 0.1);
+  background: var(--surfaceColor);
+  border: 1px solid rgba(11, 29, 42, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 16px 36px rgba(11, 29, 42, 0.12);
   overflow: hidden;
   cursor: pointer;
   display: flex;
@@ -13,13 +13,13 @@
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(2, 27, 43, 0.16);
+  box-shadow: 0 22px 48px rgba(11, 29, 42, 0.2);
 }
 
 .imageWrapper {
   width: 100%;
   aspect-ratio: 16 / 10;
-  background: linear-gradient(135deg, #dfe8ec, #f7fafb);
+  background: linear-gradient(135deg, rgba(201, 161, 95, 0.18), rgba(247, 250, 251, 0.9));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +52,7 @@
 .meta {
   margin: 0;
   font-size: 0.85rem;
-  color: #4d7c76;
+  color: var(--accentColor);
   font-weight: 800;
 }
 
@@ -62,8 +62,8 @@
   min-height: 24px;
   padding: 0 0.55rem;
   border-radius: 999px;
-  color: #6b4d1c;
-  background: #fff4e4;
+  color: #5b3c12;
+  background: var(--goldAccentSoft);
   font-size: 0.75rem;
   font-weight: 800;
 }

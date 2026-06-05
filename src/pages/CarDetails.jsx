@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import pageStyles from './page.module.css';
 import { getCar } from '../api/carAPI';
-import FuelExpenseForm from '../layout/FuelExpenseForm';
+import ExpenseDetails from './ExpenseDetails';
 import HeaderMenu from '../layout/HeaderMenu';
 
 export default function CarDetails() {
@@ -85,7 +85,7 @@ export default function CarDetails() {
         </div>
 
         <div className={pageStyles.carDetailsExpensePanel}>
-          <FuelExpenseForm matricule={matricule} />
+          <ExpenseDetails matricule={matricule} />
         </div>
       </div>
     </>

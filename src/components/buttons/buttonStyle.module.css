@@ -1,24 +1,24 @@
 .signInButton {
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
     text-align: center;
     cursor: pointer;
     padding: 0;
     border-radius: 8px;
     font-size: 0.9rem;
     min-width: 84px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.32);
 }
 .signInLink {
     display: block;
     padding: 0.7rem 0.9rem;
     text-decoration: none;
-    color: var(--secondlyColor);
+    color: #ffffff;
     font-family: var(--buttonFont);
     font-weight: 800;
 }
 .signUpButton {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.38);
+    background: var(--goldAccent);
+    border: 1px solid rgba(201, 161, 95, 0.8);
     text-align: center;
     cursor: pointer;
     padding: 0;
@@ -31,18 +31,18 @@
     display: block;
     padding: 0.7rem 0.9rem;
     text-decoration: none;
-    color: #ffffff;
+    color: #1b1405;
     font-family: var(--buttonFont);
     font-weight: 800;
     transition: color 0.2s ease
 }
 
 .signUpButton:hover {
-    background-color: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    background-color: #d5b57d;
+    border: 1px solid rgba(213, 181, 125, 0.9);
 }
 .signUpButton:hover .signUpLink {
-    color: #ffffff;
+    color: #1b1405;
 }
 
 @media (max-width: 760px) {
