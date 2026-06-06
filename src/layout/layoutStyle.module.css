@@ -3,6 +3,7 @@
     color: #F3F4F4;
     margin: 5px;
     border-radius: 7px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .img {
@@ -90,7 +91,13 @@
     color: var(--secondlyColor);
     background: rgba(255, 255, 255, 0.92);
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.04);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+body[data-theme='dark'] .input {
+    background: rgba(25, 40, 55, 0.8);
+    color: #e8f1f7;
+    border-color: rgba(200, 220, 240, 0.1);
 }
 
 .input:focus {
@@ -98,6 +105,10 @@
     border-color: var(--thirdColor);
     box-shadow: 0 0 0 4px rgba(215, 38, 61, 0.08);
     background-color: #fff;
+}
+
+body[data-theme='dark'] .input:focus {
+    background-color: rgba(35, 55, 75, 0.9);
 }
 
 .btn {
@@ -114,6 +125,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 18px 32px rgba(7, 29, 48, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .btn:hover {
@@ -137,6 +149,13 @@
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(10px);
     box-shadow: 0 20px 40px rgba(2, 27, 43, 0.11);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body[data-theme='dark'] .formCard {
+    background: rgba(25, 40, 55, 0.9);
+    border-color: rgba(200, 220, 240, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .sectionTitle {
@@ -342,19 +361,46 @@
 
 .garageGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
 }
 
 .garageCard {
     display: grid;
-    grid-template-columns: 160px 1fr;
-    min-height: 260px;
+    grid-template-columns: 220px 1fr;
+    min-height: 240px;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid rgba(2, 27, 43, 0.08);
     background: #ffffff;
-    box-shadow: 0 14px 30px rgba(2, 27, 43, 0.09);
+    box-shadow: 0 10px 30px rgba(2, 27, 43, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (max-width: 992px) {
+    .garageCard {
+        grid-template-columns: 180px 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .garageCard {
+        grid-template-columns: 1fr;
+    }
+    .garageImage {
+        height: 200px;
+    }
+    .metricGrid {
+        grid-template-columns: 1fr;
+    }
+    .garageActions {
+        grid-template-columns: 1fr;
+    }
+}
+
+.garageCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(2, 27, 43, 0.15);
 }
 
 .garageImage {
@@ -409,6 +455,33 @@
     font-weight: 800;
 }
 
+.garageCardHeaderActions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.deleteIconBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: #fdf2f2;
+    color: #c53030;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.deleteIconBtn:hover {
+    background: #f8d7da;
+    color: #9b2c2c;
+    transform: scale(1.05);
+}
+
 .garageCardTitle button {
     padding: 0.55rem 0.75rem;
     color: #1f4f57;
@@ -421,38 +494,76 @@
     gap: 0.5rem;
 }
 
-.metricGrid div {
+.metricCard {
     padding: 0.75rem;
     border-radius: 8px;
     background: #f4f7f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgba(2, 27, 43, 0.05);
 }
 
-.metricGrid span,
-.expenseBreakdown span {
+.highlightMetric {
+    background: #eef7f6 !important;
+    border: 1px solid rgba(77, 124, 118, 0.2) !important;
+}
+
+.highlightMetric strong {
+    color: #4d7c76 !important;
+}
+
+.metricCard span {
     display: block;
     color: #60717a;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
-.metricGrid strong {
+.metricCard strong {
     display: block;
     margin-top: 0.25rem;
     color: var(--secondlyColor);
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-weight: 800;
 }
 
-.expenseBreakdown {
+.expenseProgress {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.5rem 0;
 }
 
-.expenseBreakdown span {
-    padding: 0.45rem 0.65rem;
+.progressItem {
+    width: 100%;
+}
+
+.progressLabel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+
+.progressLabel span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #60717a;
+}
+
+.progressBar {
+    height: 6px;
+    background: #eef3f7;
     border-radius: 999px;
-    background: #fff4e4;
-    color: #6b4d1c;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .garageActions {
@@ -600,10 +711,12 @@
     font-family: var(--buttonFont);
     font-weight: 800;
     letter-spacing: 0.02em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
 .themeToggle:hover {
     background: rgba(255, 255, 255, 0.16);
+    transform: scale(1.05);
 }
 
 .userChip {
@@ -617,6 +730,12 @@
     background: rgba(201, 161, 95, 0.75);
     font-weight: 800;
     white-space: nowrap;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body[data-theme='dark'] .userChip {
+    background: rgba(230, 216, 159, 0.2);
+    color: #e6d89f;
 }
 
 .signInContainer,

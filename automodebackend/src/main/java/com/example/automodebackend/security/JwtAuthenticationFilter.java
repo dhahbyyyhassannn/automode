@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String token = header.substring(7); // Enlever "Bearer "
                 
                 String username = Jwts.parser()
-                        .setSigningKey(SECRET_KEY.getBytes())
+                        .setSigningKey(SECRET_KEY.getBytes(StandardCharsets.UTF_8))
                         .parseClaimsJws(token)
                         .getBody()
                         .getSubject();

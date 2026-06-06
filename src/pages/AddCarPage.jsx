@@ -31,7 +31,7 @@ export default function AddCarPage() {
         <div>
             <HeaderMenu />
             <div className={pageStyles.pageWrapper}>
-                <AddCarForm/>
+                <AddCarForm onSuccess={() => navigate('/myCars')} />
             </div>
         </div>
     )

@@ -8,12 +8,21 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body[data-theme='dark'] .card {
+  border-color: rgba(230, 237, 243, 0.1);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
 }
 
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 22px 48px rgba(11, 29, 42, 0.2);
+}
+
+body[data-theme='dark'] .card:hover {
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.4);
 }
 
 .imageWrapper {
@@ -36,6 +45,11 @@
   color: #5b6d75;
   font-size: 0.9rem;
   font-weight: 800;
+  transition: color 0.3s ease;
+}
+
+body[data-theme='dark'] .placeholder {
+  color: #9bb0b7;
 }
 
 .content {
@@ -56,6 +70,31 @@
   font-weight: 800;
 }
 
+.expenseMetric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin: 0.25rem 0 0.65rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 8px;
+  background: rgba(215, 38, 61, 0.08);
+  border: 1px solid rgba(215, 38, 61, 0.12);
+  font-size: 0.85rem;
+  color: var(--inkMuted);
+}
+
+.expenseMetric strong {
+  color: var(--thirdColor);
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+body[data-theme='dark'] .expenseMetric {
+  background: rgba(255, 107, 122, 0.12);
+  border-color: rgba(255, 107, 122, 0.22);
+  color: var(--inkMuted);
+}
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -66,6 +105,11 @@
   background: var(--goldAccentSoft);
   font-size: 0.75rem;
   font-weight: 800;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body[data-theme='dark'] .badge {
+  color: #1a1410;
 }
 
 @media (max-width: 768px) {

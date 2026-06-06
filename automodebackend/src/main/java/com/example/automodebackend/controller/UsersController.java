@@ -31,7 +31,7 @@ public class UsersController {
     @PostMapping("/createUser")
     public Users createUser(@RequestBody Users user) {
         if (repository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Erreur:Cet email est déjà utilisé !");
+            throw new RuntimeException("Error: This email is already used!");
         }
         Users newUser = new Users();
         newUser.setName(user.getName());
@@ -48,7 +48,7 @@ public class UsersController {
         if (dbUser.isPresent()) {
             return jwtUtil.generateToken(user.getEmail(), dbUser.get().getUserId());
         }
-        throw new RuntimeException("Utilisateur non trouvé");
+        throw new RuntimeException("User not found");
     }
 
     @PutMapping("/updateUser")
@@ -70,27 +70,27 @@ public class UsersController {
         try {
             String bearerToken = token.substring(7);
             int userId = jwtUtil.extractUserId(bearerToken);
-            Users user = repository.findById(userId).orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+            Users user = repository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
             
             String oldPassword = passwordData.get("oldPassword");
             String newPassword = passwordData.get("newPassword");
             
             if (oldPassword == null || newPassword == null) {
-                return ResponseEntity.badRequest().body("Les anciens et nouveaux mots de passe sont requis");
+                return ResponseEntity.badRequest().body("Old and new passwords are required");
             }
             
-            // Vérifier que l'ancien mot de passe est correct
+            // Check that the old password is correct
             if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-                return ResponseEntity.status(401).body("L'ancien mot de passe est incorrect");
+                return ResponseEntity.status(401).body("The old password is incorrect");
             }
             
-            // Mettre à jour le mot de passe
+            // Update the password
             user.setPassword(passwordEncoder.encode(newPassword));
             repository.save(user);
             
-            return ResponseEntity.ok("Mot de passe changé avec succès");
+            return ResponseEntity.ok("Password changed successfully");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Erreur lors du changement de mot de passe: " + e.getMessage());
+            return ResponseEntity.status(500).body("Error changing password: " + e.getMessage());
         }
     }
 

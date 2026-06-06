@@ -20,7 +20,7 @@ export default function BestCar() {
         setBestCar(data);
       } catch (error) {
         setBestCar(null);
-        setBestCarError('Impossible de charger la meilleure voiture.');
+        setBestCarError('Unable to load the best vehicle.');
       } finally {
         setBestCarLoading(false);
       }
@@ -41,8 +41,8 @@ export default function BestCar() {
 
   return (
     <div className={styles.bestCarSection}>
-      <h2 className={styles.bestCarTitle}>Meilleure voiture pour vous</h2>
-      {bestCarLoading && <p>Chargement...</p>}
+      <h2 className={styles.bestCarTitle}>Best car for you</h2>
+      {bestCarLoading && <p>Loading...</p>}
       {bestCarError && <p className={styles.bestCarError}>{bestCarError}</p>}
       {!bestCarLoading && !bestCarError && bestVehicle && (
         <div className={styles.bestCarCard}>
@@ -60,8 +60,8 @@ export default function BestCar() {
               {bestVehicle.brand} {bestVehicle.model}
             </h3>
             <p className={styles.bestCarType}>{bestVehicle.type}</p>
-            <p className={styles.bestCarMeta}>Matricule: {bestVehicle.matricule}</p>
-            <p className={styles.bestCarMetaRow}>Annee: {bestVehicle.year} | Km: {bestVehicle.currentMileage}</p>
+            <p className={styles.bestCarMeta}>License Plate: {bestVehicle.matricule}</p>
+            <p className={styles.bestCarMetaRow}>Year: {bestVehicle.year} | Mileage: {bestVehicle.currentMileage}</p>
             {bestScore !== null && (
               <p className={styles.bestCarScore}>
                 Score: {(bestScore * 100).toFixed(1)}%
@@ -72,12 +72,12 @@ export default function BestCar() {
             className={styles.bestCarButton}
             onClick={() => navigate(`/car/${encodeURIComponent(bestVehicle.matricule)}`)}
           >
-            Voir details
+            View details
           </button>
         </div>
       )}
       {!bestCarLoading && !bestCarError && !bestVehicle && (
-        <p>Aucune voiture disponible.</p>
+        <p>No vehicles available.</p>
       )}
     </div>
   );

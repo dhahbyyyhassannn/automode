@@ -41,7 +41,13 @@ export default function RepairExpenseForm({ matricule, onBack, onSubmit }) {
         }
 
         try {
-            await Promise.all(repairExpenses.map((expense) => AddRepairExpenses(effectiveMatricule, expense)));
+            await Promise.all(repairExpenses.map((expense) => {
+                const expenseData = {
+                    ...expense,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                return AddRepairExpenses(effectiveMatricule, expenseData);
+            }));
             Swal.fire({ icon: 'success', title: 'Setup complete', text: 'Repair expense saved successfully!' });
             if (onSubmit) {
                 onSubmit(repairExpenses);
@@ -50,7 +56,8 @@ export default function RepairExpenseForm({ matricule, onBack, onSubmit }) {
             }
         } catch (error) {
             console.error('Error adding repair expenses:', error);
-            Swal.fire({ icon: 'error', title: 'Error', text: 'Failed to add repair expenses.' });
+            const errorMessage = error.response?.data || error.message || 'Failed to add repair expenses.';
+            Swal.fire({ icon: 'error', title: 'Error', text: errorMessage });
         }
     };
 
@@ -85,6 +92,7 @@ export default function RepairExpenseForm({ matricule, onBack, onSubmit }) {
                                 className={layoutStyles.input}
                                 type="number"
                                 step="0.01"
+                                min="0"
                                 name={`repairCost-${index}`}
                                 value={expense.cost}
                                 onChange={(event) => updateRepairExpense(index, 'cost', event.target.value)}
@@ -97,6 +105,7 @@ export default function RepairExpenseForm({ matricule, onBack, onSubmit }) {
                             <input
                                 className={layoutStyles.input}
                                 type="number"
+                                min="0"
                                 name={`repairMileageAtService-${index}`}
                                 value={expense.mileageAtService}
                                 onChange={(event) => updateRepairExpense(index, 'mileageAtService', event.target.value)}
@@ -122,6 +131,7 @@ export default function RepairExpenseForm({ matricule, onBack, onSubmit }) {
                             <input
                                 className={layoutStyles.input}
                                 type="number"
+                                min="0"
                                 name={`repairNextChangeMiles-${index}`}
                                 value={expense.nextChangeMiles}
                                 onChange={(event) => updateRepairExpense(index, 'nextChangeMiles', event.target.value)}

@@ -126,12 +126,12 @@ export default function AddCarForm({ onSuccess }) {
 
                 <div className={layoutStyles.formGroup}>
                     <label className={layoutStyles.Label}>Year:</label>
-                    <input className={layoutStyles.input} type="number" name="year" onChange={handleChange} required />
+                    <input className={layoutStyles.input} type="number" min="1900" max="2100" name="year" onChange={handleChange} required />
                 </div>
 
                 <div className={layoutStyles.formGroup}>
                     <label className={layoutStyles.Label}>Current Mileage (km):</label>
-                    <input className={layoutStyles.input} type="number" placeholder="50000" name="currentMileage" onChange={handleChange} required />
+                    <input className={layoutStyles.input} type="number" min="0" placeholder="50000" name="currentMileage" onChange={handleChange} required />
                 </div>
 
                 <div className={layoutStyles.formGroup}>
@@ -139,7 +139,7 @@ export default function AddCarForm({ onSuccess }) {
                     <input className={layoutStyles.input} type="file" name="image" accept="image/*" onChange={handleChange} />
                 </div>
 
-                <button type="submit" className={layoutStyles.btn }>Validate</button>
+                <button type="submit" className={layoutStyles.btn }>Submit Vehicle</button>
             </form>
                 </div>
             )}

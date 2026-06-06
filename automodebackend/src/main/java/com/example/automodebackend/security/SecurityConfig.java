@@ -45,7 +45,8 @@ public class SecurityConfig {
                         .requestMatchers("/signInUser", "/createUser").permitAll()
                         .requestMatchers("/search", "/random").permitAll()
                         .requestMatchers("/getCar/**").permitAll()
-                    .requestMatchers("/vehicles/bestPublic").permitAll()
+                        .requestMatchers("/vehicles/bestPublic").permitAll()
+                        .requestMatchers("/vehicles/*/expenseSummaryPublic").permitAll()
                         .anyRequest().authenticated())
                         .sessionManagement(session -> session.
                                 sessionCreationPolicy(SessionCreationPolicy.STATELESS))

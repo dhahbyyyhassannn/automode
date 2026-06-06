@@ -26,6 +26,7 @@ export default function SearchResults({ cars }) {
                     cars.map((car) => (
                         <CarCard
                             key={car.matricule}
+                            matricule={car.matricule}
                             brand={car.brand}
                             model={car.model}
                             type={car.type}

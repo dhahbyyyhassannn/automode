@@ -19,6 +19,13 @@
     background: rgba(255, 255, 255, 0.92);
     border: 1px solid rgba(2, 27, 43, 0.08);
     box-shadow: 0 24px 60px rgba(2, 27, 43, 0.08);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body[data-theme='dark'] .homeIntro {
+    background: rgba(25, 40, 55, 0.9);
+    border-color: rgba(200, 220, 240, 0.08);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
 }
 
 .homeIntroLogo {
@@ -78,6 +85,11 @@
     border-radius: 20px;
     overflow: hidden;
     background: linear-gradient(180deg, #f5f8fb 0%, #ffffff 100%);
+    transition: background 0.3s ease;
+}
+
+body[data-theme='dark'] .carDetails_hero {
+    background: linear-gradient(180deg, #1a2f3f 0%, #0f1821 100%);
     display: flex;
     align-items: center;
     justify-content: center;

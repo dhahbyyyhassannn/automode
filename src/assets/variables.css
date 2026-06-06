@@ -30,18 +30,18 @@
 
 body[data-theme='dark'] {
     --primaryColor: #0f1821;
-    --secondlyColor: #e6edf3;
-    --thirdColor: #e35a65;
-    --accentColor: #9ec5b6;
-    --warningColor: #f0c27c;
-    --inkMuted: #9bb0b7;
-    --surfaceColor: rgba(15, 24, 33, 0.9);
-    --surfaceElevated: rgba(18, 29, 40, 0.92);
-    --surfaceShadow: rgba(0, 0, 0, 0.35);
-    --goldAccent: #e0c07a;
-    --goldAccentSoft: rgba(224, 192, 122, 0.18);
+    --secondlyColor: #e8f1f7;
+    --thirdColor: #ff6b7a;
+    --accentColor: #a8d5c4;
+    --warningColor: #ffd966;
+    --inkMuted: #b0c9d9;
+    --surfaceColor: rgba(15, 24, 33, 0.95);
+    --surfaceElevated: rgba(25, 40, 55, 0.95);
+    --surfaceShadow: rgba(0, 0, 0, 0.4);
+    --goldAccent: #e6d89f;
+    --goldAccentSoft: rgba(230, 216, 159, 0.15);
     --navyDeep: #0b141d;
-    --navySoft: #142333;
+    --navySoft: #1a2f3f;
     --shadowSoft: rgba(0, 0, 0, 0.35);
     --shadowHard: rgba(0, 0, 0, 0.55);
 }

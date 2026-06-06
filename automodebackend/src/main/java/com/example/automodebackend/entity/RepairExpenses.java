@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 public class RepairExpenses extends Expenses {
     private String description;
-    private int nextChangeMiles;
+    private Integer nextChangeMiles;
 }

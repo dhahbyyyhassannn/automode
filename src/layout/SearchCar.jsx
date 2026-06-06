@@ -6,9 +6,13 @@ export default function SearchBar({ onSearch }) {
     const [keyword, setKeyword] = useState("");
 
     useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {onSearch(keyword);}, 300);
+        const delayDebounceFn = setTimeout(() => {
+            if (keyword.trim() !== "") {
+                onSearch(keyword);
+            }
+        }, 300);
         return () => clearTimeout(delayDebounceFn);
-    }, [keyword, onSearch]);
+    }, [keyword]);
 
     return (
         <div className={layoutStyle.searchBar}>
@@ -18,7 +22,7 @@ export default function SearchBar({ onSearch }) {
             <input
                 className={layoutStyle.input}
                 type="text"
-                placeholder="Chercher une marque ou modèle..."
+                placeholder="Search brand or model..."
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
             />

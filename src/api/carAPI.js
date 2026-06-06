@@ -25,7 +25,7 @@ export const searchCar = async (keyword) => {
 
 export const getCar = async (matricule) => {
     try {
-        const response = await axios.get(`http://localhost:8090/getCar/${matricule}`, {
+        const response = await axios.get(`http://localhost:8090/getCar/${encodeURIComponent(matricule)}`, {
             headers: getAuthHeaders() 
         });
         return response.data;
@@ -54,7 +54,7 @@ export const getUserVehicles = async () => {
 
 export const deleteVehicle = async (matricule) => {
     try {
-        const response = await axios.delete(`http://localhost:8090/deleteVehicle/${matricule}`, {
+        const response = await axios.delete(`http://localhost:8090/deleteVehicle/${encodeURIComponent(matricule)}`, {
             headers: getAuthHeaders()
         });
         return response.data;
@@ -66,12 +66,22 @@ export const deleteVehicle = async (matricule) => {
 
 export const getVehicleExpenseSummary = async (matricule) => {
     try {
-        const response = await axios.get(`http://localhost:8090/vehicles/${matricule}/expenseSummary`, {
+        const response = await axios.get(`http://localhost:8090/vehicles/${encodeURIComponent(matricule)}/expenseSummary`, {
             headers: getAuthHeaders()
         });
         return response.data;
     } catch (error) {
         console.error("Get vehicle expense summary failed:", error.response?.data || error.message);
+        throw error;
+    }
+};
+
+export const getVehicleExpenseSummaryPublic = async (matricule) => {
+    try {
+        const response = await axios.get(`http://localhost:8090/vehicles/${encodeURIComponent(matricule)}/expenseSummaryPublic`);
+        return response.data;
+    } catch (error) {
+        console.error("Get vehicle expense summary public failed:", error.response?.data || error.message);
         throw error;
     }
 };
@@ -101,10 +111,10 @@ export const getBestVehiclePublic = async () => {
 // Image-related endpoints
 export const getVehicleImage = async (matricule) => {
     try {
-        const response = await axios.get(`http://localhost:8090/api/images/vehicle/${matricule}`, {
+        const response = await axios.get(`http://localhost:8090/api/images/vehicle/${encodeURIComponent(matricule)}`, {
             responseType: 'blob'
         });
-        // Convert blob to base64
+        // Convert blob to base64 data URL
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -114,19 +124,29 @@ export const getVehicleImage = async (matricule) => {
             reader.readAsDataURL(response.data);
         });
     } catch (error) {
-        console.error("Get vehicle image failed:", error.response?.data || error.message);
+        console.error("Get vehicle image failed:", error);
         return null; // Return null if image not found
+    }
+};
+
+export const getVehicleImageBase64 = async (matricule) => {
+    try {
+        const response = await axios.get(`http://localhost:8090/api/images/vehicle-base64/${encodeURIComponent(matricule)}`);
+        return response.data.imageUrl;
+    } catch (error) {
+        console.error("Get vehicle image (base64) failed:", error);
+        return null;
     }
 };
 
 export const getVehicleWithImage = async (matricule) => {
     try {
-        const response = await axios.get(`http://localhost:8090/api/images/vehicle-with-image/${matricule}`, {
+        const response = await axios.get(`http://localhost:8090/api/images/vehicle-with-image/${encodeURIComponent(matricule)}`, {
             headers: getAuthHeaders()
         });
         return response.data;
     } catch (error) {
-        console.error("Get vehicle with image failed:", error.response?.data || error.message);
+        console.error("Get vehicle with image failed:", error);
         throw error;
     }
 };

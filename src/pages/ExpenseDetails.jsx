@@ -46,7 +46,7 @@ export default function ExpenseDetails({ matricule }) {
       <>
         <HeaderMenu />
         <div className={pageStyles.expenseLoading}>
-          <h2>Chargement des dépenses...</h2>
+          <h2>Loading expenses...</h2>
         </div>
       </>
     );
@@ -55,21 +55,21 @@ export default function ExpenseDetails({ matricule }) {
   return (
     <>
       <div className={pageStyles.expenseContainer}>
-        <h2 className={pageStyles.expenseTitle}>Détails des dépenses</h2>
+        <h2 className={pageStyles.expenseTitle}>Expense Details</h2>
 
         <div className={pageStyles.expenseGrid}>
           {/* Fuel Expenses */}
           <div className={`${pageStyles.expenseCard} ${pageStyles.expenseCardFuel}`}>
-            <h3 className={pageStyles.expenseCardTitle}>Plein d'essence</h3>
+            <h3 className={pageStyles.expenseCardTitle}>Fuel Expenses</h3>
             {fuelExpenses.length === 0 ? (
-              <p className={pageStyles.expenseEmpty}>Aucune dépense d'essence enregistrée</p>
+              <p className={pageStyles.expenseEmpty}>No fuel expenses recorded</p>
             ) : (
               <table className={pageStyles.expenseTable}>
                 <thead>
                   <tr className={pageStyles.expenseTableHeadFuel}>
                     <th className={pageStyles.expenseCellHead}>Date</th>
-                    <th className={pageStyles.expenseCellHead}>Litre</th>
-                    <th className={pageStyles.expenseCellHead}>Prix/Litre</th>
+                    <th className={pageStyles.expenseCellHead}>Liters</th>
+                    <th className={pageStyles.expenseCellHead}>Price/Liter</th>
                     <th className={pageStyles.expenseCellHead}>Total</th>
                   </tr>
                 </thead>
@@ -77,12 +77,12 @@ export default function ExpenseDetails({ matricule }) {
                   {fuelExpenses.map((expense, index) => (
                     <tr key={index} className={pageStyles.expenseRow}>
                       <td className={pageStyles.expenseCell}>
-                        {new Date(expense.date).toLocaleDateString('fr-FR')}
+                        {new Date(expense.date).toLocaleDateString('en-US')}
                       </td>
                       <td className={pageStyles.expenseCell}>{toFixedSafe(expense.liters)} L</td>
                       <td className={pageStyles.expenseCell}>{toFixedSafe(expense.pricePerLitre)} €</td>
                       <td className={pageStyles.expenseTotal}>
-                        {toFixedSafe((expense.liters || 0) * (expense.pricePerLitre || 0))} €
+                        {toFixedSafe(expense.cost)} €
                       </td>
                     </tr>
                   ))}
@@ -93,29 +93,29 @@ export default function ExpenseDetails({ matricule }) {
 
           {/* Repair Expenses */}
           <div className={`${pageStyles.expenseCard} ${pageStyles.expenseCardRepair}`}>
-            <h3 className={pageStyles.expenseCardTitle}>Réparations</h3>
+            <h3 className={pageStyles.expenseCardTitle}>Repairs</h3>
             {repairExpenses.length === 0 ? (
-              <p className={pageStyles.expenseEmpty}>Aucune réparation enregistrée</p>
+              <p className={pageStyles.expenseEmpty}>No repairs recorded</p>
             ) : (
               <table className={pageStyles.expenseTable}>
                 <thead>
                   <tr className={pageStyles.expenseTableHeadRepair}>
                     <th className={pageStyles.expenseCellHead}>Date</th>
                     <th className={pageStyles.expenseCellHead}>Description</th>
-                    <th className={pageStyles.expenseCellHead}>Prochain changement (km)</th>
-                    <th className={pageStyles.expenseCellHead}>Montant</th>
+                    <th className={pageStyles.expenseCellHead}>Next change (km)</th>
+                    <th className={pageStyles.expenseCellHead}>Amount</th>
                   </tr>
                 </thead>
                 <tbody>
                   {repairExpenses.map((expense, index) => (
                     <tr key={index} className={pageStyles.expenseRow}>
                       <td className={pageStyles.expenseCell}>
-                        {new Date(expense.date).toLocaleDateString('fr-FR')}
+                        {new Date(expense.date).toLocaleDateString('en-US')}
                       </td>
                       <td className={pageStyles.expenseCell}>{expense.description}</td>
                       <td className={pageStyles.expenseCell}>{expense.nextChangeMiles || 'N/A'} km</td>
                       <td className={pageStyles.expenseTotal}>
-                        {toFixedSafe(expense.amount)} €
+                        {toFixedSafe(expense.cost)} €
                       </td>
                     </tr>
                   ))}
@@ -126,29 +126,29 @@ export default function ExpenseDetails({ matricule }) {
 
           {/* Oil Change Expenses */}
           <div className={`${pageStyles.expenseCard} ${pageStyles.expenseCardOil}`}>
-            <h3 className={pageStyles.expenseCardTitle}>Changement d'huile</h3>
+            <h3 className={pageStyles.expenseCardTitle}>Oil Change</h3>
             {oilChangeExpenses.length === 0 ? (
-              <p className={pageStyles.expenseEmpty}>Aucun changement d'huile enregistré</p>
+              <p className={pageStyles.expenseEmpty}>No oil changes recorded</p>
             ) : (
               <table className={pageStyles.expenseTable}>
                 <thead>
                   <tr className={pageStyles.expenseTableHeadOil}>
                     <th className={pageStyles.expenseCellHead}>Date</th>
-                    <th className={pageStyles.expenseCellHead}>Type d'huile</th>
-                    <th className={pageStyles.expenseCellHead}>Prochain changement (km)</th>
-                    <th className={pageStyles.expenseCellHead}>Montant</th>
+                    <th className={pageStyles.expenseCellHead}>Oil type</th>
+                    <th className={pageStyles.expenseCellHead}>Next change (km)</th>
+                    <th className={pageStyles.expenseCellHead}>Amount</th>
                   </tr>
                 </thead>
                 <tbody>
                   {oilChangeExpenses.map((expense, index) => (
                     <tr key={index} className={pageStyles.expenseRow}>
                       <td className={pageStyles.expenseCell}>
-                        {new Date(expense.date).toLocaleDateString('fr-FR')}
+                        {new Date(expense.date).toLocaleDateString('en-US')}
                       </td>
                       <td className={pageStyles.expenseCell}>{expense.oilType || 'N/A'}</td>
                       <td className={pageStyles.expenseCell}>{expense.nextChangeMiles || 'N/A'} km</td>
                       <td className={pageStyles.expenseTotal}>
-                        {toFixedSafe(expense.amount)} €
+                        {toFixedSafe(expense.cost)} €
                       </td>
                     </tr>
                   ))}

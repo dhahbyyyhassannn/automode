@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class OilChangeExpenses extends Expenses {
     private String oilType;
-    private int nextChangeMiles;
+    private Integer nextChangeMiles;
 }

@@ -20,6 +20,5 @@ public class Vehicles {
     private byte[] image;
     @ManyToOne
     @JoinColumn(name = "userId")
-    @JsonIgnore
     private Users user;
 }

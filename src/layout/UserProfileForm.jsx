@@ -28,9 +28,9 @@ export default function UserProfileForm({ user }) {
 
         try {
         await updateUser(formData);
-            setMessage('Profil mis à jour avec succès!');
+            setMessage('Profile updated successfully!');
         } catch (err) {
-            setError('Erreur lors de la mise à jour: ' + (err.response?.data?.message || err.message));
+            setError('Error updating profile: ' + (err.response?.data?.message || err.message));
         } finally {
             setLoading(false);
         }
@@ -38,17 +38,17 @@ export default function UserProfileForm({ user }) {
 
     return (
         <form className={styles.formContainer} onSubmit={handleSubmit}>
-            <h2>Mes Informations</h2>
+            <h2>My Information</h2>
             
             <div className={styles.formGroup}>
-                <label htmlFor="name">Nom:</label>
+                <label htmlFor="name">Name:</label>
                 <input
                     type="text"
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Votre nom"
+                    placeholder="Your name"
                 />
             </div>
 
@@ -60,13 +60,13 @@ export default function UserProfileForm({ user }) {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Votre email"
+                    placeholder="Your email"
                 />
             </div>
             {message && <p className={styles.successMessage}>{message}</p>}
             {error && <p className={styles.errorMessage}>{error}</p>}
             <button type="submit" disabled={loading} className={styles.submitButton}>
-                {loading ? 'Mise à jour...' : 'Enregistrer les modifications'}
+                {loading ? 'Updating...' : 'Save Changes'}
             </button>
         </form>
     );

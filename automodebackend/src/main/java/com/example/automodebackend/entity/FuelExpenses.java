@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FuelExpenses extends Expenses {
-    private double liters;
-    private double pricePerLitre;
+    private Double liters;
+    private Double pricePerLitre;
+    private Double estimatedMilesPerLiter;
 }

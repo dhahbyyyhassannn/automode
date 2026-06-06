@@ -28,7 +28,11 @@ export default function OilChangeExpenseForm({ matricule, onBack, onNext }) {
         }
 
         try {
-            await AddOilChangeExpenses(effectiveMatricule, oilChangeExpense);
+            const expenseData = {
+                ...oilChangeExpense,
+                date: new Date().toISOString().split('T')[0]
+            };
+            await AddOilChangeExpenses(effectiveMatricule, expenseData);
             Swal.fire({ icon: 'success', title: 'Success', text: 'Oil change expense added successfully!' });
             if (onNext) {
                 onNext();
@@ -37,7 +41,8 @@ export default function OilChangeExpenseForm({ matricule, onBack, onNext }) {
             }
         } catch (error) {
             console.error('Error adding oil change expense:', error);
-            Swal.fire({ icon: 'error', title: 'Error', text: 'Failed to add oil change expense.' });
+            const errorMessage = error.response?.data || error.message || 'Failed to add oil change expense.';
+            Swal.fire({ icon: 'error', title: 'Error', text: errorMessage });
         }
     };
 
@@ -48,12 +53,12 @@ export default function OilChangeExpenseForm({ matricule, onBack, onNext }) {
             <div className={layoutStyles.formGrid}>
                 <div className={layoutStyles.formGroup}>
                     <label className={layoutStyles.Label}>Cost:</label>
-                    <input className={layoutStyles.input} type="number" step="0.01" name="cost" value={oilChangeExpense.cost} onChange={handleChange} required />
+                    <input className={layoutStyles.input} type="number" step="0.01" min="0" name="cost" value={oilChangeExpense.cost} onChange={handleChange} required />
                 </div>
 
                 <div className={layoutStyles.formGroup}>
                     <label className={layoutStyles.Label}>Mileage at service:</label>
-                    <input className={layoutStyles.input} type="number" name="mileageAtService" value={oilChangeExpense.mileageAtService} onChange={handleChange} required />
+                    <input className={layoutStyles.input} type="number" min="0" name="mileageAtService" value={oilChangeExpense.mileageAtService} onChange={handleChange} required />
                 </div>
 
                 <div className={layoutStyles.formGroup}>
@@ -63,7 +68,7 @@ export default function OilChangeExpenseForm({ matricule, onBack, onNext }) {
 
                 <div className={layoutStyles.formGroup}>
                     <label className={layoutStyles.Label}>Next change miles:</label>
-                    <input className={layoutStyles.input} type="number" name="nextChangeMiles" value={oilChangeExpense.nextChangeMiles} onChange={handleChange} required />
+                    <input className={layoutStyles.input} type="number" min="0" name="nextChangeMiles" value={oilChangeExpense.nextChangeMiles} onChange={handleChange} required />
                 </div>
             </div>
 
